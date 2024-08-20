@@ -10,23 +10,45 @@
     <title>AhorrADAs</title>
   </head>
   <body>
-
     <!-- navbar -->
-    <div class="w-screen h-16 flex justify-between items-center bg-teal-400 text-white">
-      <div class="px-5">
-        <i class="fa-solid fa-wallet"></i>
-        AhorrADAs
-      </div>
-      
-      <div class="px-5">
-        <i class="fa-solid fa-bars"></i>
-      </div>
-    </div>
+    <header class="md:bg-teal-400">
+      <div class="w-screen flex flex-col
+      md:flex-row md:justify-between md:items-center md:px-5">
+        <div class="h-16 flex flex-row justify-between items-center px-2 bg-teal-400 text-white">
+          <div class="text-2xl">
+            <i class="fa-solid fa-wallet"></i>
+            AhorrADAs
+          </div>
 
+          <div class="md:hidden" id="buttonMenu">
+            <i class="fa-solid fa-bars"></i>
+          </div>
+        </div>
+
+        <div class="h-full text-lg shadow-md hidden
+        md:flex md:shadow-none md:text-base md:text-white " id="headerNav">
+          <a href="./index.html" class="flex items-center md:px-1">
+            <i class="fa-solid fa-chart-line p-3 
+            md:p-1"></i> Balance
+          </a>
+          <a href="./pages/categories.html" class="flex items-center md:px-1">
+            <i class="fa-solid fa-tag p-3
+            md:p-1"></i> Categorías
+          </a>
+          <a href="./pages/reports.html" class="flex items-center md:px-1">
+            <i class="fa-solid fa-chart-pie p-3
+            md:p-1"></i> Reportes
+          </a>
+        </div>
+      </div>
+    </header>
 
     <!-- fontawesome -->
-    <script src="https://kit.fontawesome.com/09619394e8.js" crossorigin="anonymous"></script>
-    
+    <script
+      src="https://kit.fontawesome.com/09619394e8.js"
+      crossorigin="anonymous"
+    ></script>
+
     <!-- javascript -->
     <script src="./assets/js/app.js"></script>
   </body>
