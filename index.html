@@ -9,7 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Index - AhorrADAs</title>
   </head>
-  <body>
+  <body class="bg-stone-100">
     <!-- navbar -->
     <header class="md:bg-teal-400">
       <div class="w-screen flex flex-col
@@ -45,6 +45,102 @@
         </div>
       </div>
     </header>
+
+    <!--Main se empieza a identar -->
+
+    <main class="m-14">
+
+      <section class="flex justify-center ">
+        <div>
+        <!--Balance-->
+          <div id="container-balance" class="w-80 bg-stone-50 rounded shadow-lg">
+            <h2 id="title-balance" class="m-2.5 my-2 p-3 font-bold text-slate-700 text-3xl">Balance</h2>
+            <div class="m-2.5 my-5 p-2">
+              <ul class="flex justify-between m-2.5">
+                <li id="text-ganancias" class="text-slate-600 text-xl">Ganancias</li>
+                <li id="number-ganancias" class="text-green-500 text-x">+$0</li>
+              </ul>
+              <ul class="flex justify-between m-2.5">
+                <li id="text-gastos" class="text-slate-600 text-xl">Gastos</li>
+                <li id="number-gastos" class="text-red-500 text-l">-$0</li>
+              </ul>
+              <ul class="flex justify-between m-2.5">
+                <li id="text-total" class="text-slate-600 text-2xl">Total</li>
+                <li id="number-total" class="text-slate-600 font-bold">$0</li>
+              </ul>
+          </div>
+        </div>
+
+        <!--Filtros-->
+
+        <div id="container-filtros" class="w-80 bg-stone-50 rounded shadow-lg">
+
+          <div class="flex items-center justify-between">
+          <h2 id="title-filtros" class="m-2.5 my-2 p-3 font-bold text-slate-700 text-2xl">Filtros</h2>
+          <a id="button-ocultar-filtros" href="" class="m-2.5">Ocultar filtros</a>
+          </div>
+
+          <div id="container-inputs-filtros">
+            <div id="div-filtros-tipo" class="flex flex-col m-2.5 p-2">
+              <label id="label-tipo" for="filtro-tipo" class="font-bold py-2">Tipo</label>
+              <select id="filtro-tipo" class="h-9 bg-stone-50 outline outline-1 outline-slate-400 rounded">
+                <option value="todos">Todos</option>
+                <option value="gasto">Gasto</option>
+                <option value="ganancia">Ganancia</option>
+              </select>
+            </div>
+            <div id="div-filtros-categoria" class="flex flex-col m-2.5 p-2">
+              <label id="label-categoría" for="filtro-categoria" class="font-bold py-2">Categoría</label>
+              <select id="filtro-categoria" class="h-9 bg-stone-50 outline outline-1 outline-slate-400 rounded">
+                <option value="todas">Todas</option>
+                <option value="comida">Comida</option>
+                <option value="servicios">Servicios</option>
+                <option value="salidas">Salidas</option>
+                <option value="educacion">Educación</option>
+                <option value="transporte">Transporte</option>
+                <option value="trabajo">Trabajo</option>
+              </select>
+            </div>
+            <div id="div-filtros-fecha" class="flex flex-col m-2.5 p-2">
+              <label id="label-fecha" for="filtro-fecha" class="font-bold py-2">Desde</label>
+              <input id="filtro-fecha" type="date" class="h-9 bg-stone-50 outline outline-1 outline-slate-400 rounded">
+            </div>
+            <div id="div-filtros-ordenar" class="flex flex-col m-2.5 p-2">
+              <label id="label-ordenar" for="filtro-ordenar" class="font-bold py-2">Ordenar por</label>
+              <select id="filtro-ordenar" class="h-9 bg-stone-50 outline outline-1 outline-slate-400 rounded">
+                <option value="mas-reciente">Más reciente</option>
+                <option value="menos-reciente">Menos reciente</option>
+                <option value="mayor-monto">Mayor monto</option>
+                <option value="menor-monto">Menor monto</option>
+                <option value="a-z">A/Z</option>
+                <option value="z-a">Z/A</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!--Operaciones-->
+      <div id="container-operaciones" class="flex flex-col mx-3 w-[45rem] h-fit bg-stone-50 rounded shadow-lg">
+        <div class="flex justify-between ">
+          <h2 id="title-operaciones" class="m-2.5 my-2 p-3 font-bold text-[#4a4a4a] text-2xl">Operaciones</h2>
+          <button id="button-nueva-operacion" class="m-2.5 h-[3rem] bg-[#2dd4bf] rounded text-[#ffffff] p-3">+ Nueva Operación</button>
+        </div>
+        <div class="self-center m-[6rem]">
+          <figure id="figure-operacion">
+            <img class="w-[20rem]" src="./iconos/wallet.svg" alt="Ilustración de billetera y ahorros">
+          </figure>
+          <div id="div-text-operaciones" class="mt-[2rem]">
+          <h3 class="p-4 text-[#4a4a4a] text-xl text-center">Sin resultados</h3>
+          <p class="text-[#4a4a4a] text-base text-center font-light">Cambia los filtros o agrega operaciones </p>
+        </div>
+        </div>
+      </div>
+
+      </section>
+    </main>
 
     <!-- fontawesome -->
     <script
