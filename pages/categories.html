@@ -9,9 +9,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Categorías - AhorrADAs</title>
   </head>
-  <body>
+  <body class="bg-stone-50">
    <!-- navbar -->
-   <header class="md:bg-teal-400">
+   <header class="bg-teal-400">
     <div class="w-screen flex flex-col
     md:flex-row md:justify-between md:items-center md:px-5">
       <div class="h-16 flex flex-row justify-between items-center px-2 bg-teal-400 text-white">
@@ -25,8 +25,8 @@
         </div>
       </div>
 
-      <div class="h-full text-lg shadow-md hidden
-      md:flex md:shadow-none md:text-base md:text-white " id="headerNav">
+      <div class="h-full bg-white text-lg shadow-md hidden 
+      md:flex md:bg-teal-400 md:shadow-none md:text-base md:text-white " id="headerNav">
         <a href="/index.html" class="flex items-center 
         md:p-2 md:rounded md:hover:bg-teal-500">
           <i class="fa-solid fa-chart-line p-3 
@@ -45,6 +45,25 @@
       </div>
     </div>
   </header>
+
+  <main>
+    <section class="w-11/12 m-auto my-16 p-5 bg-white rounded-md shadow-lg 
+    md:w-2/3">
+      <h2 class="mb-4 font-bold text-slate-700 text-4xl">Categorías</h2>
+
+      <div>
+        <label for="name-category" class="font-bold">Nombre</label>
+        <div class="flex">
+          <input type="text" class="w-full mt-1 block px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+          focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500">
+          <button type="submit" class="ml-2 mt-1 p-4 py-2 bg-green-500 rounded-md text-white">Agregar</button>
+        </div>
+      </div>
+
+     
+
+    </section>
+  </main>
 
     <!-- fontawesome -->
     <script
