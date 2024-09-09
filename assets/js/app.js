@@ -16,7 +16,6 @@ renderCategories();
 
 /* add */
 categoriesForm.addEventListener("submit", (e) => {
-
   const categoryToAdd = categoriesInput.value.trim();
 
   e.preventDefault();
@@ -28,27 +27,23 @@ categoriesForm.addEventListener("submit", (e) => {
 });
 
 function renderCategories() {
-    categoriesList.innerHTML = '';
-    categories.forEach(category => {
-   
-        const li = document.createElement('li');
-        li.classList.add('py-3', 'flex', 'justify-between', 'items-center');
-        li.innerHTML = `
+  categoriesList.innerHTML = "";
+  categories.forEach((category) => {
+    const li = document.createElement("li");
+    li.classList.add("py-3", "flex", "justify-between", "items-center");
+    li.innerHTML = `
             <div>
                 <p>${category}</p>
             </div>
             <div>
-                <button id="editBtn" class="mx-2 px-3 py-1 bg-blue-200 rounded-md">Editar</button>
-                <button id="deleteBtn" class="mx-2 px-3 py-1 bg-red-400 rounded-md">Eliminar</button>
+            <button id="editBtn" class="mx-2 px-3 py-1 bg-blue-200 rounded-md">Editar</button>
+            <button id="deleteBtn" class="mx-2 px-3 py-1 bg-red-400 rounded-md">Eliminar</button>
             </div>
         `;
-        
-        categoriesList.appendChild(li);
-    })
+
+    categoriesList.appendChild(li);
+  });
 }
-
-/* delete */
-
 
 /* burger menu */
 const buttonMenu = document.getElementById("buttonMenu");
@@ -57,4 +52,3 @@ const headerNav = document.getElementById("headerNav");
 buttonMenu.addEventListener("click", () => {
   headerNav.classList.toggle("hidden");
 });
-
