@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- metatags -->
+
+    <!-- tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Reportes - AhorrADAs</title>
+  </head>
+  <body class="bg-stone-50 ">
+    <!-- navbar -->
+    <header class="md:bg-teal-400">
+      <div class="w-screen flex flex-col
+      md:flex-row md:justify-between md:items-center md:px-5">
+        <div class="h-16 flex flex-row justify-between items-center px-2 bg-teal-400 text-white">
+          <div class="text-2xl">
+            <i class="fa-solid fa-wallet"></i>
+            AhorrADAs
+          </div>
+  
+          <div class="md:hidden" id="buttonMenu">
+            <i class="fa-solid fa-bars"></i>
+          </div>
+        </div>
+  
+        <div class="h-full text-lg shadow-md hidden
+        md:flex md:shadow-none md:text-base md:text-white" id="headerNav">
+          <a href="/index.html" class="flex items-center 
+          md:p-2 md:rounded md:hover:bg-teal-500">
+            <i class="fa-solid fa-chart-line p-3 
+            md:p-1"></i> Balance
+          </a>
+          <a href="./categories.html" class="flex items-center
+            md:p-2 md:rounded md:hover:bg-teal-500">
+            <i class="fa-solid fa-tag p-3
+            md:p-1"></i> Categorías
+          </a>
+          <a href="./reports.html" class="flex items-center 
+            md:p-2 md:rounded md:hover:bg-teal-500">
+            <i class="fa-solid fa-chart-pie p-3
+            md:p-1"></i> Reportes
+          </a>
+        </div>
+      </div>
+    </header>
+
+<!-- Main -->
+
+    <main class="mx-5 my-14 xl:m-16">
+        <section class="w-full m-auto p-5 bg-white rounded-md shadow-lg xl:w-7/12">
+            
+            <h2 id="new-operation-title" class="mb-4 font-bold text-slate-700 text-4xl">Nueva Operación</h2>
+
+            <form id="new-operation-input-container">
+                <div class="flex flex-col m-2.5 p-1">
+                    <label for="descripcion" class="font-bold py-2">Descripción</label>
+                    <input id="descripcion-input" type="text" class="h-9 bg-white outline outline-1 outline-slate-400 rounded" name="Descripción">
+                </div>
+                <div class="flex flex-col m-2.5 p-1">
+                    <label for="monto" class="font-bold py-2">Monto</label>
+                    <input id="monto-input" type="number" class="h-9 bg-white outline outline-1 outline-slate-400 rounded" name="Monto">
+                </div>
+                <div class="flex flex-col m-2.5 p-1">
+                    <label for="tipo" class="font-bold py-2">Tipo</label>
+                    <select name="tipo" id="tipo-new-operation" class="h-9 bg-white outline outline-1 outline-slate-400 rounded" name="Tipo">
+                        <option value="gasto">Gasto</option>
+                        <option value="ganancia">Ganancia</option>
+                    </select>
+                </div>
+                <div class="flex flex-col m-2.5 p-1">
+                    <label for="categoria" class="font-bold py-2">Categoría</label>
+                    <select name="categoria" id="categoria-new-operation" class="h-9 bg-white outline outline-1 outline-slate-400 rounded" name="Categoría">
+                        <option value="servicios">Servicios</option>
+                        <option value="salidas">Salidas</option>
+                        <option value="educacion">Educación</option>
+                        <option value="transporte">Transporte</option>
+                        <option value="trabajo">Trabajo</option>
+                    </select>
+                </div>
+                <div class="flex flex-col m-2.5 p-1">
+                    <label for="fecha" class="font-bold py-2">Fecha</label>
+                    <input type="date" class="h-9 bg-white outline outline-1 outline-slate-400 rounded" name="Fecha">
+                </div>
+                
+                <div id="new-operation-button-container" class="flex justify-end mt-[2rem]">
+                    <button id="new-operation-button-cancelar" class="m-2 h-[3rem] bg-[#f5f5f5] rounded text-black p-3" type="reset">Cancelar</button>
+                    <button id="new-operation-button-agregar" class="m-2 h-[3rem] bg-[#48c774] rounded text-[#ffffff] p-3" type="submit">Agregar</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+      <!-- fontawesome -->
+      <script
+      src="https://kit.fontawesome.com/09619394e8.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- javascript -->
+    <script src="../assets/js/app.js"></script>
+</body>
+</html>
