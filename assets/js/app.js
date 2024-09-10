@@ -29,6 +29,12 @@ const categories = JSON.parse(localStorage.getItem("Categories")) || [
 const categoriesForm = document.getElementById("categories-form");
 const categoriesList = document.getElementById("categories-list");
 const categoriesInput = document.getElementById("categories-input");
+const categoriesListSection = document.getElementById("categories-list-section");
+const editCategorySection = document.getElementById("edit-category-section");
+const editCategoryInput = document.getElementById("edit-category-input");
+const editCategoryForm = document.getElementById("edit-category-form");
+const cancelEditBtn = document.getElementById("cancel-edit-button")
+let categoryIndex;
 
 /* on init */
 renderCategories();
@@ -64,6 +70,7 @@ function renderCategories() {
   });
 
   deleteBtnEvent();
+  editBtnEvent();
 }
 
 /* delete button */
@@ -82,6 +89,41 @@ deleteBtns.forEach(btn => {
   });
 });
 }
+
+/* edit button */
+function editBtnEvent() {
+    const editBtns = document.querySelectorAll(".editBtn");
+
+    editBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        categoriesListSection.classList.add("hidden");
+        editCategorySection.classList.remove("hidden");
+
+        categoryIndex = e.target.getAttribute("data-index");
+        const category = categories[categoryIndex];
+        editCategoryInput.value = category;
+      });
+    });
+  }
+
+  editCategoryForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const editedCategory = editCategoryInput.value.trim();
+    categories.splice(categoryIndex, 1, editedCategory);
+    localStorage.setItem("Categories", JSON.stringify(categories));
+    renderCategories();
+    backToCategoriesList()
+  })
+
+  /* cancel button */
+  function backToCategoriesList() {
+    categoriesListSection.classList.remove("hidden");
+    editCategorySection.classList.add("hidden");
+  }
+
+  cancelEditBtn.addEventListener('click', () => {
+    backToCategoriesList();
+  })
 
 /* burger menu */
 const buttonMenu = document.getElementById("buttonMenu");
