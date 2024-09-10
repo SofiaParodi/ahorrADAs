@@ -11,6 +11,8 @@ const categoriesForm = document.getElementById("categories-form");
 const categoriesList = document.getElementById("categories-list");
 const categoriesInput = document.getElementById("categories-input");
 
+
+if (window.location.pathname.includes("categories.html")) {
 /* on init */
 renderCategories();
 
@@ -62,7 +64,7 @@ deleteBtns.forEach(btn => {
     }
   });
 });
-}
+}}
 
 /* burger menu */
 const buttonMenu = document.getElementById("buttonMenu");
