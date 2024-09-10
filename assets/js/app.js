@@ -8,10 +8,10 @@ form.addEventListener('submit', (e) => {
   const objNewOperation = Object.fromEntries(formData);
 
   const jsonNewOperation = JSON.stringify(objNewOperation);  
-  localStorage.setItem('form', jsonNewOperation);
+  localStorage.setItem('newForm', jsonNewOperation);
   console.log(jsonNewOperation);
 
-  const jsonNewOperationObj = localStorage.getItem('form');
+  const jsonNewOperationObj = localStorage.getItem('newForm');
   const objNewOperationObj = JSON.parse(jsonNewOperationObj);
 
 console.log(objNewOperationObj);
