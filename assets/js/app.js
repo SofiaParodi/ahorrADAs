@@ -28,7 +28,7 @@ categoriesForm.addEventListener("submit", (e) => {
 
 function renderCategories() {
   categoriesList.innerHTML = "";
-  categories.forEach((category) => {
+  categories.forEach((category, index) => {
     const li = document.createElement("li");
     li.classList.add("py-3", "flex", "justify-between", "items-center");
     li.innerHTML = `
@@ -36,13 +36,32 @@ function renderCategories() {
                 <p>${category}</p>
             </div>
             <div>
-            <button id="editBtn" class="mx-2 px-3 py-1 bg-blue-200 rounded-md">Editar</button>
-            <button id="deleteBtn" class="mx-2 px-3 py-1 bg-red-400 rounded-md">Eliminar</button>
+            <button data-index="${index}" class="editBtn mx-2 px-3 py-1 bg-blue-200 rounded-md">Editar</button>
+            <button data-index="${index}" class="deleteBtn mx-2 px-3 py-1 bg-red-400 rounded-md">Eliminar</button>
             </div>
         `;
 
     categoriesList.appendChild(li);
   });
+
+  deleteBtnEvent();
+}
+
+/* delete button */
+function deleteBtnEvent() {
+const deleteBtns = document.querySelectorAll(".deleteBtn");
+
+deleteBtns.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    const index = e.target.getAttribute("data-index");
+    const category = categories[index];
+    if (confirm(`¿Estás seguro de que deseas eliminar la categoría "${category}"?`)) {
+      categories.splice(index, 1);
+      localStorage.setItem("Categories", JSON.stringify(categories));
+      renderCategories();
+    }
+  });
+});
 }
 
 /* burger menu */
@@ -52,3 +71,4 @@ const headerNav = document.getElementById("headerNav");
 buttonMenu.addEventListener("click", () => {
   headerNav.classList.toggle("hidden");
 });
+
