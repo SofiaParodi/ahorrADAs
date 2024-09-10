@@ -1,3 +1,22 @@
+/* Nueva Operación */
+
+const form = document.getElementById('new-operation-input-container');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const formData = new FormData(form);
+  const objNewOperation = Object.fromEntries(formData);
+
+  const jsonNewOperation = JSON.stringify(objNewOperation);  
+  localStorage.setItem('form', jsonNewOperation);
+  console.log(jsonNewOperation);
+
+  const jsonNewOperationObj = localStorage.getItem('form');
+  const objNewOperationObj = JSON.parse(jsonNewOperationObj);
+
+console.log(objNewOperationObj);
+})
+
 /* categories */
 const categories = JSON.parse(localStorage.getItem("Categories")) || [
   "Comida",
@@ -52,3 +71,8 @@ const headerNav = document.getElementById("headerNav");
 buttonMenu.addEventListener("click", () => {
   headerNav.classList.toggle("hidden");
 });
+
+
+
+
+

@@ -26,7 +26,7 @@
         </div>
   
         <div class="h-full text-lg shadow-md hidden
-        md:flex md:shadow-none md:text-base md:text-white " id="headerNav">
+        md:flex md:shadow-none md:text-base md:text-white" id="headerNav">
           <a href="/index.html" class="flex items-center 
           md:p-2 md:rounded md:hover:bg-teal-500">
             <i class="fa-solid fa-chart-line p-3 
@@ -49,29 +49,29 @@
 <!-- Main -->
 
     <main class="m-14">
-        <section class="w-11/12 m-auto my-16 p-5 bg-white rounded-md shadow-lg md:w-2/3">
+        <section class="w-11/12 m-auto my-16 p-5 bg-white rounded-md shadow-lg md:w-10/12 md:my-[1rem]">
             
             <h2 id="new-operation-title" class="mb-4 font-bold text-slate-700 text-4xl">Nueva Operación</h2>
 
-            <div id="new-operation-input-container">
+            <form id="new-operation-input-container">
                 <div class="flex flex-col m-2.5 p-1">
                     <label for="descripcion" class="font-bold py-2">Descripción</label>
-                    <input type="text" class="h-9 bg-white outline outline-1 outline-slate-400 rounded">
+                    <input id="descripcion-input" type="text" class="h-9 bg-white outline outline-1 outline-slate-400 rounded" name="Descripción">
                 </div>
                 <div class="flex flex-col m-2.5 p-1">
                     <label for="monto" class="font-bold py-2">Monto</label>
-                    <input type="number" class="h-9 bg-white outline outline-1 outline-slate-400 rounded">
+                    <input id="monto-input" type="number" class="h-9 bg-white outline outline-1 outline-slate-400 rounded" name="Monto">
                 </div>
                 <div class="flex flex-col m-2.5 p-1">
                     <label for="tipo" class="font-bold py-2">Tipo</label>
-                    <select name="tipo" id="tipo-new-operation" class="h-9 bg-white outline outline-1 outline-slate-400 rounded">
+                    <select name="tipo" id="tipo-new-operation" class="h-9 bg-white outline outline-1 outline-slate-400 rounded" name="Tipo">
                         <option value="gasto">Gasto</option>
                         <option value="ganancia">Ganancia</option>
                     </select>
                 </div>
                 <div class="flex flex-col m-2.5 p-1">
                     <label for="categoria" class="font-bold py-2">Categoría</label>
-                    <select name="categoria" id="categoria-new-operation" class="h-9 bg-white outline outline-1 outline-slate-400 rounded">
+                    <select name="categoria" id="categoria-new-operation" class="h-9 bg-white outline outline-1 outline-slate-400 rounded" name="Categoría">
                         <option value="servicios">Servicios</option>
                         <option value="salidas">Salidas</option>
                         <option value="educacion">Educación</option>
@@ -81,14 +81,14 @@
                 </div>
                 <div class="flex flex-col m-2.5 p-1">
                     <label for="fecha" class="font-bold py-2">Fecha</label>
-                    <input type="date" class="h-9 bg-white outline outline-1 outline-slate-400 rounded">
+                    <input type="date" class="h-9 bg-white outline outline-1 outline-slate-400 rounded" name="Fecha">
                 </div>
-            </div>
-
-            <div id="new-operation-button-container" class="flex justify-end mt-[2rem]">
-                <button id="new-operation-button-cancelar" class="m-2 h-[3rem] bg-[#f5f5f5] rounded text-black p-3">Cancelar</button>
-                <button id="new-operation-button-agregar" class="m-2 h-[3rem] bg-[#48c774] rounded text-[#ffffff] p-3">Agregar</button>
-            </div>
+                
+                <div id="new-operation-button-container" class="flex justify-end mt-[2rem]">
+                    <button id="new-operation-button-cancelar" class="m-2 h-[3rem] bg-[#f5f5f5] rounded text-black p-3" type="reset">Cancelar</button>
+                    <button id="new-operation-button-agregar" class="m-2 h-[3rem] bg-[#48c774] rounded text-[#ffffff] p-3" type="submit">Agregar</button>
+                </div>
+            </form>
         </section>
     </main>
 
