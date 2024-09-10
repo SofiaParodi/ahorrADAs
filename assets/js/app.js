@@ -14,6 +14,7 @@ const categoriesListSection = document.getElementById("categories-list-section")
 const editCategorySection = document.getElementById("edit-category-section");
 const editCategoryInput = document.getElementById("edit-category-input");
 const editCategoryForm = document.getElementById("edit-category-form");
+const cancelEditBtn = document.getElementById("cancel-edit-button")
 let categoryIndex;
 
 /* on init */
@@ -79,7 +80,7 @@ function editBtnEvent() {
         categoriesListSection.classList.add("hidden");
         editCategorySection.classList.remove("hidden");
 
-        const categoryIndex = e.target.getAttribute("data-index");
+        categoryIndex = e.target.getAttribute("data-index");
         const category = categories[categoryIndex];
         editCategoryInput.value = category;
       });
@@ -92,12 +93,18 @@ function editBtnEvent() {
     categories.splice(categoryIndex, 1, editedCategory);
     localStorage.setItem("Categories", JSON.stringify(categories));
     renderCategories();
-
-    categoriesListSection.classList.remove("hidden");
-    editCategorySection.classList.add("hidden");
+    backToCategoriesList()
   })
 
+  /* cancel button */
+  function backToCategoriesList() {
+    categoriesListSection.classList.remove("hidden");
+    editCategorySection.classList.add("hidden");
+  }
 
+  cancelEditBtn.addEventListener('click', () => {
+    backToCategoriesList();
+  })
 
 /* burger menu */
 const buttonMenu = document.getElementById("buttonMenu");
