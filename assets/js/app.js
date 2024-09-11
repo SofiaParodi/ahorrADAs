@@ -36,6 +36,8 @@ const editCategoryForm = document.getElementById("edit-category-form");
 const cancelEditBtn = document.getElementById("cancel-edit-button")
 let categoryIndex;
 
+
+if (window.location.pathname.includes("categories.html")) {
 /* on init */
 renderCategories();
 
@@ -88,7 +90,7 @@ deleteBtns.forEach(btn => {
     }
   });
 });
-}
+}}
 
 /* edit button */
 function editBtnEvent() {
