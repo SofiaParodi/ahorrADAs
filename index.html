@@ -56,8 +56,10 @@
 
     <!--Main se empieza a identar -->
     <main>
-      <section id="operations-section"
-      class="my-14 md:w-10/12 md:flex md:mx-auto">
+      <section
+        id="operations-section"
+        class="my-14 md:w-10/12 md:flex md:mx-auto"
+      >
         <!-- balance y filters container -->
         <div class="md:w-1/3">
           <!-- balance -->
@@ -113,12 +115,6 @@
                   class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"
                 >
                   <option value="todas">Todas</option>
-                  <option value="comida">Comida</option>
-                  <option value="servicios">Servicios</option>
-                  <option value="salidas">Salidas</option>
-                  <option value="educacion">Educación</option>
-                  <option value="transporte">Transporte</option>
-                  <option value="trabajo">Trabajo</option>
                 </select>
               </div>
               <div id="div-filtros-fecha" class="flex flex-col my-4">
@@ -192,7 +188,8 @@
       </section>
 
       <!-- new operation -->
-      <section id="new-operation-section"
+      <section
+        id="new-operation-section"
         class="w-11/12 m-auto my-14 p-5 bg-white rounded-md shadow-lg md:w-2/3 hidden"
       >
         <h2 class="mb-4 font-bold text-slate-700 text-4xl">Nueva operación</h2>
@@ -200,30 +197,67 @@
         <form>
           <div class="flex flex-col">
             <label for="description" class="font-bold py-2">Descripción</label>
-            <input type="text" name="description" id="" class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"/>
+            <input
+              type="text"
+              name="description"
+              id=""
+              class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"
+            />
           </div>
           <div class="flex flex-col">
             <label for="amount" class="font-bold py-2">Monto</label>
-            <input type="text" name="amount" id="" class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"/>
+            <input
+              type="text"
+              name="amount"
+              id=""
+              class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"
+            />
           </div>
           <div class="flex flex-col">
             <label for="type" class="font-bold py-2">Tipo</label>
-            <select name="type" id="" class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"></select>
+            <select
+              name="type"
+              id=""
+              class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"
+            >
+              <option value="gasto">Gasto</option>
+              <option value="ganancia">Ganancia</option>
+            </select>
           </div>
 
           <div class="flex flex-col">
             <label for="category" class="font-bold py-2">Categoría</label>
-            <select name="category" id="" class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"></select>
+            <select
+              name="category"
+              id="new-operation-category"
+              class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"
+            ></select>
           </div>
 
           <div class="flex flex-col">
             <label for="date" class="font-bold py-2">Fecha</label>
-            <input type="date" name="descrition" id="" class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"/>
+            <input
+              type="date"
+              name="descrition"
+              id=""
+              class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"
+            />
           </div>
 
           <div class="mt-4 flex justify-end">
-            <button type="button" id="cancelOpBtn" class="p-4 py-2 bg-slate-200 rounded-md text-black">Cancelar</button>
-            <button type="submit" class="ml-2 p-4 py-2 bg-green-500 rounded-md text-white">Agregar</button>
+            <button
+              type="button"
+              id="cancelOpBtn"
+              class="p-4 py-2 bg-slate-200 rounded-md text-black"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="ml-2 p-4 py-2 bg-green-500 rounded-md text-white"
+            >
+              Agregar
+            </button>
           </div>
         </form>
       </section>

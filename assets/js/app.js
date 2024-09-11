@@ -1,8 +1,21 @@
-// /* Nueva Operación */
+/* arrays */
+const categories = JSON.parse(localStorage.getItem("Categories")) || [
+  "Comida",
+  "Servicios",
+  "Salidas",
+  "Educación",
+  "Transporte",
+  "Trabajo",
+];
+
+/* Nueva Operación */
 const newOperationSection = document.getElementById('new-operation-section');
 const operationsSection = document.getElementById('operations-section');
 const newOperationBtn = document.getElementById('button-nueva-operacion')
 const cancelOpBtn = document.getElementById('cancelOpBtn');
+const filterCategorySelect = document.getElementById('filtro-categoria');
+const newOpCategorySelect = document.getElementById('new-operation-category');
+
 // const form = document.getElementById('new-operation-input-container');
 
 // form.addEventListener('submit', (e) => {
@@ -20,6 +33,17 @@ const cancelOpBtn = document.getElementById('cancelOpBtn');
 // console.log(objNewOperationObj);
 // })
 if (window.location.pathname.includes("index.html")) {
+  function populateCategoriesSelect (selectElement, categories) {
+    categories.forEach(category => {
+      const optionElement = document.createElement('option');
+      optionElement.value = category;
+      optionElement.textContent = category;
+      selectElement.appendChild(optionElement);
+  })
+}
+
+populateCategoriesSelect(filterCategorySelect, categories);
+populateCategoriesSelect(newOpCategorySelect, categories);
 
 function toggleNewOpForm() {
   operationsSection.classList.toggle('hidden');
@@ -38,14 +62,6 @@ cancelOpBtn.addEventListener('click', () => {
 
 
 /* categories */
-const categories = JSON.parse(localStorage.getItem("Categories")) || [
-  "Comida",
-  "Servicios",
-  "Salidas",
-  "Educación",
-  "Transporte",
-  "Trabajo",
-];
 const categoriesForm = document.getElementById("categories-form");
 const categoriesList = document.getElementById("categories-list");
 const categoriesInput = document.getElementById("categories-input");
