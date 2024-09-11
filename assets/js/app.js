@@ -60,6 +60,24 @@ cancelOpBtn.addEventListener('click', () => {
 })
 }
 
+/* mostrar/ocultar filtros */
+const toggleFiltersBtn = document.getElementById('button-ocultar-filtros');
+const filtersContainer = document.getElementById('container-inputs-filtros');
+let showFilters = true;
+
+toggleFiltersBtn.addEventListener('click', () => {
+  if (showFilters) {
+    filtersContainer.classList.add('hidden');
+    toggleFiltersBtn.innerText = 'Mostrar filtros';
+  } else {
+    filtersContainer.classList.remove('hidden');
+    toggleFiltersBtn.innerText = 'Ocultar filtros';
+  }
+  
+  showFilters = !showFilters;
+})
+
+
 
 /* categories */
 const categoriesForm = document.getElementById("categories-form");
@@ -134,8 +152,7 @@ function editBtnEvent() {
 
     editBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
-        categoriesListSection.classList.add("hidden");
-        editCategorySection.classList.remove("hidden");
+        toggleCategoriesList();
 
         categoryIndex = e.target.getAttribute("data-index");
         const category = categories[categoryIndex];
@@ -150,17 +167,17 @@ function editBtnEvent() {
     categories.splice(categoryIndex, 1, editedCategory);
     localStorage.setItem("Categories", JSON.stringify(categories));
     renderCategories();
-    backToCategoriesList()
+    toggleCategoriesList();
   })
 
   /* cancel button */
-  function backToCategoriesList() {
-    categoriesListSection.classList.remove("hidden");
-    editCategorySection.classList.add("hidden");
+  function toggleCategoriesList() {
+    categoriesListSection.classList.toggle("hidden");
+    editCategorySection.classList.toggle("hidden");
   }
 
   cancelEditBtn.addEventListener('click', () => {
-    backToCategoriesList();
+    toggleCategoriesList();
   })
   }
 
