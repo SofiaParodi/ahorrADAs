@@ -10,7 +10,6 @@
     <title>Index - AhorrADAs</title>
   </head>
   <body class="bg-stone-100">
-
     <!-- navbar -->
     <header class="w-screen md:bg-teal-400">
       <div
@@ -29,7 +28,10 @@
           </div>
         </div>
 
-        <div class="h-full bg-white text-lg shadow-md hidden md:flex md:bg-teal-400 md:shadow-none md:text-base md:text-white" id="headerNav">
+        <div
+          class="h-full bg-white text-lg shadow-md hidden md:flex md:bg-teal-400 md:shadow-none md:text-base md:text-white"
+          id="headerNav"
+        >
           <a
             href="./index.html"
             class="flex items-center md:p-2 md:rounded md:hover:bg-teal-500"
@@ -54,7 +56,8 @@
 
     <!--Main se empieza a identar -->
     <main>
-      <section class="my-14 md:w-10/12 md:flex md:mx-auto ">
+      <section id="operations-section"
+      class="my-14 md:w-10/12 md:flex md:mx-auto">
         <!-- balance y filters container -->
         <div class="md:w-1/3">
           <!-- balance -->
@@ -155,13 +158,15 @@
         </div>
 
         <!-- operaciones container -->
-        <div class="w-11/12 m-auto mt-9 p-5 bg-stone-50 rounded shadow-lg
-        md:w-2/3 md:m-0">
+        <div
+          class="w-11/12 m-auto mt-9 p-5 bg-stone-50 rounded shadow-lg md:w-2/3 md:m-0"
+        >
           <div class="flex justify-between">
             <h2 class="font-bold text-slate-700 text-2xl">Operaciones</h2>
             <button
               id="button-nueva-operacion"
-              class="p-2 bg-[#2dd4bf] rounded text-[#ffffff]">
+              class="p-2 bg-[#2dd4bf] rounded text-[#ffffff]"
+            >
               + Nueva Operación
             </button>
           </div>
@@ -184,6 +189,43 @@
             </div>
           </div>
         </div>
+      </section>
+
+      <!-- new operation -->
+      <section id="new-operation-section"
+        class="w-11/12 m-auto my-14 p-5 bg-white rounded-md shadow-lg md:w-2/3 hidden"
+      >
+        <h2 class="mb-4 font-bold text-slate-700 text-4xl">Nueva operación</h2>
+
+        <form>
+          <div class="flex flex-col">
+            <label for="description" class="font-bold py-2">Descripción</label>
+            <input type="text" name="description" id="" class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"/>
+          </div>
+          <div class="flex flex-col">
+            <label for="amount" class="font-bold py-2">Monto</label>
+            <input type="text" name="amount" id="" class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"/>
+          </div>
+          <div class="flex flex-col">
+            <label for="type" class="font-bold py-2">Tipo</label>
+            <select name="type" id="" class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"></select>
+          </div>
+
+          <div class="flex flex-col">
+            <label for="category" class="font-bold py-2">Categoría</label>
+            <select name="category" id="" class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"></select>
+          </div>
+
+          <div class="flex flex-col">
+            <label for="date" class="font-bold py-2">Fecha</label>
+            <input type="date" name="descrition" id="" class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"/>
+          </div>
+
+          <div class="mt-4 flex justify-end">
+            <button type="button" id="cancelOpBtn" class="p-4 py-2 bg-slate-200 rounded-md text-black">Cancelar</button>
+            <button type="submit" class="ml-2 p-4 py-2 bg-green-500 rounded-md text-white">Agregar</button>
+          </div>
+        </form>
       </section>
     </main>
 

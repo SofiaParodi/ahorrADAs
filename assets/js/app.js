@@ -1,21 +1,41 @@
-/* Nueva Operación */
+// /* Nueva Operación */
+const newOperationSection = document.getElementById('new-operation-section');
+const operationsSection = document.getElementById('operations-section');
+const newOperationBtn = document.getElementById('button-nueva-operacion')
+const cancelOpBtn = document.getElementById('cancelOpBtn');
+// const form = document.getElementById('new-operation-input-container');
 
-const form = document.getElementById('new-operation-input-container');
+// form.addEventListener('submit', (e) => {
+//   e.preventDefault();
+//   const formData = new FormData(form);
+//   const objNewOperation = Object.fromEntries(formData);
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const formData = new FormData(form);
-  const objNewOperation = Object.fromEntries(formData);
+//   const jsonNewOperation = JSON.stringify(objNewOperation);  
+//   localStorage.setItem('newForm', jsonNewOperation);
+//   console.log(jsonNewOperation);
 
-  const jsonNewOperation = JSON.stringify(objNewOperation);  
-  localStorage.setItem('newForm', jsonNewOperation);
-  console.log(jsonNewOperation);
+//   const jsonNewOperationObj = localStorage.getItem('newForm');
+//   const objNewOperationObj = JSON.parse(jsonNewOperationObj);
 
-  const jsonNewOperationObj = localStorage.getItem('newForm');
-  const objNewOperationObj = JSON.parse(jsonNewOperationObj);
+// console.log(objNewOperationObj);
+// })
+if (window.location.pathname.includes("index.html")) {
 
-console.log(objNewOperationObj);
+function toggleNewOpForm() {
+  operationsSection.classList.toggle('hidden');
+  operationsSection.classList.toggle('md:hidden');
+  newOperationSection.classList.toggle('hidden');
+}
+
+newOperationBtn.addEventListener('click', () => {
+  toggleNewOpForm();
 })
+
+cancelOpBtn.addEventListener('click', () => {
+  toggleNewOpForm();
+})
+}
+
 
 /* categories */
 const categories = JSON.parse(localStorage.getItem("Categories")) || [
@@ -90,7 +110,7 @@ deleteBtns.forEach(btn => {
     }
   });
 });
-}}
+}
 
 /* edit button */
 function editBtnEvent() {
@@ -126,6 +146,7 @@ function editBtnEvent() {
   cancelEditBtn.addEventListener('click', () => {
     backToCategoriesList();
   })
+  }
 
 /* burger menu */
 const buttonMenu = document.getElementById("buttonMenu");
