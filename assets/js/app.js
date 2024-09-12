@@ -1,23 +1,4 @@
-/* Nueva Operación */
-
-const form = document.getElementById('new-operation-input-container');
-
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const formData = new FormData(form);
-  const objNewOperation = Object.fromEntries(formData);
-
-  const jsonNewOperation = JSON.stringify(objNewOperation);  
-  localStorage.setItem('newForm', jsonNewOperation);
-  console.log(jsonNewOperation);
-
-  const jsonNewOperationObj = localStorage.getItem('newForm');
-  const objNewOperationObj = JSON.parse(jsonNewOperationObj);
-
-console.log(objNewOperationObj);
-})
-
-/* categories */
+/* arrays */
 const categories = JSON.parse(localStorage.getItem("Categories")) || [
   "Comida",
   "Servicios",
@@ -26,6 +7,79 @@ const categories = JSON.parse(localStorage.getItem("Categories")) || [
   "Transporte",
   "Trabajo",
 ];
+
+/* Nueva Operación */
+const newOperationSection = document.getElementById('new-operation-section');
+const operationsSection = document.getElementById('operations-section');
+const newOperationBtn = document.getElementById('button-nueva-operacion')
+const cancelOpBtn = document.getElementById('cancelOpBtn');
+const filterCategorySelect = document.getElementById('filtro-categoria');
+const newOpCategorySelect = document.getElementById('new-operation-category');
+
+// const form = document.getElementById('new-operation-input-container');
+
+// form.addEventListener('submit', (e) => {
+//   e.preventDefault();
+//   const formData = new FormData(form);
+//   const objNewOperation = Object.fromEntries(formData);
+
+//   const jsonNewOperation = JSON.stringify(objNewOperation);  
+//   localStorage.setItem('newForm', jsonNewOperation);
+//   console.log(jsonNewOperation);
+
+//   const jsonNewOperationObj = localStorage.getItem('newForm');
+//   const objNewOperationObj = JSON.parse(jsonNewOperationObj);
+
+// console.log(objNewOperationObj);
+// })
+if (window.location.pathname.includes("index.html")) {
+  function populateCategoriesSelect (selectElement, categories) {
+    categories.forEach(category => {
+      const optionElement = document.createElement('option');
+      optionElement.value = category;
+      optionElement.textContent = category;
+      selectElement.appendChild(optionElement);
+  })
+}
+
+populateCategoriesSelect(filterCategorySelect, categories);
+populateCategoriesSelect(newOpCategorySelect, categories);
+
+function toggleNewOpForm() {
+  operationsSection.classList.toggle('hidden');
+  operationsSection.classList.toggle('md:hidden');
+  newOperationSection.classList.toggle('hidden');
+}
+
+newOperationBtn.addEventListener('click', () => {
+  toggleNewOpForm();
+})
+
+cancelOpBtn.addEventListener('click', () => {
+  toggleNewOpForm();
+})
+}
+
+/* mostrar/ocultar filtros */
+const toggleFiltersBtn = document.getElementById('button-ocultar-filtros');
+const filtersContainer = document.getElementById('container-inputs-filtros');
+let showFilters = true;
+
+toggleFiltersBtn.addEventListener('click', () => {
+  if (showFilters) {
+    filtersContainer.classList.add('hidden');
+    toggleFiltersBtn.innerText = 'Mostrar filtros';
+  } else {
+    filtersContainer.classList.remove('hidden');
+    toggleFiltersBtn.innerText = 'Ocultar filtros';
+  }
+  
+  showFilters = !showFilters;
+})
+
+
+
+/* categories */
 const categoriesForm = document.getElementById("categories-form");
 const categoriesList = document.getElementById("categories-list");
 const categoriesInput = document.getElementById("categories-input");
@@ -90,7 +144,7 @@ deleteBtns.forEach(btn => {
     }
   });
 });
-}}
+}
 
 /* edit button */
 function editBtnEvent() {
@@ -98,8 +152,7 @@ function editBtnEvent() {
 
     editBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
-        categoriesListSection.classList.add("hidden");
-        editCategorySection.classList.remove("hidden");
+        toggleCategoriesList();
 
         categoryIndex = e.target.getAttribute("data-index");
         const category = categories[categoryIndex];
@@ -114,18 +167,19 @@ function editBtnEvent() {
     categories.splice(categoryIndex, 1, editedCategory);
     localStorage.setItem("Categories", JSON.stringify(categories));
     renderCategories();
-    backToCategoriesList()
+    toggleCategoriesList();
   })
 
   /* cancel button */
-  function backToCategoriesList() {
-    categoriesListSection.classList.remove("hidden");
-    editCategorySection.classList.add("hidden");
+  function toggleCategoriesList() {
+    categoriesListSection.classList.toggle("hidden");
+    editCategorySection.classList.toggle("hidden");
   }
 
   cancelEditBtn.addEventListener('click', () => {
-    backToCategoriesList();
+    toggleCategoriesList();
   })
+  }
 
 /* burger menu */
 const buttonMenu = document.getElementById("buttonMenu");
