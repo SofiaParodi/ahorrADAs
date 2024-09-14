@@ -58,7 +58,7 @@
     <main>
       <section
         id="operations-section"
-        class="my-14 md:w-10/12 md:flex md:mx-auto"
+        class="my-14 md:w-11/12 md:flex md:mx-auto"
       >
         <!-- balance y filters container -->
         <div class="md:w-1/3">
@@ -155,7 +155,7 @@
 
         <!-- operaciones container -->
         <div
-          class="w-11/12 m-auto mt-9 p-5 bg-stone-50 rounded shadow-lg md:w-2/3 md:m-0"
+          class="w-11/12 m-auto my-9 p-5 bg-stone-50 rounded shadow-lg md:w-2/3 md:m-0"
         >
           <div class="flex justify-between">
             <h2 class="font-bold text-slate-700 text-2xl">Operaciones</h2>
@@ -167,10 +167,39 @@
             </button>
           </div>
 
-          <div class="flex flex-col items-center justify-center m-[3rem]">
+          <div class="mt-6 w-full">
+            <!-- mobile ver. -->
+          <ul id="operation-list-mobile" class="md:hidden">
+          
+          </ul>
+
+        <!-- desktop ver. -->
+        <div id="operation-list-desktop-container" class="overflow-x-auto hidden md:block">
+          <table class="w-full min-w-full divide-y divide-gray-300">
+            <thead>
+              <tr>
+                <th class="px-1 py-2 text-center font-medium text-neutral-500">Descripción</th>
+                <th class="px-1 py-2 text-center font-medium text-gray-500 text-neutral-500">Categoría</th>
+                <th class="px-1 py-2 text-center font-medium text-gray-500 text-neutral-500">Fecha</th>
+                <th class="px-1 py-2 text-center font-medium text-gray-500 text-neutral-500">Monto</th>
+                <th class="px-1 py-2 text-center font-medium text-gray-500 text-neutral-500">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="operation-list-desktop" class="divide-y divide-gray-300">
+             
+            </tbody>
+          </table>
+        </div>
+        
+        
+        </div>
+
+
+      <!-- No items in operation -->
+          <div id="empty-operation-list" class="h-5/6 flex flex-col items-center justify-center m-[3rem]">
             <figure id="figure-operacion">
               <img
-                class="w-[20rem]"
+                class=""
                 src="./iconos/wallet.svg"
                 alt="Ilustración de billetera y ahorros"
               />
@@ -183,7 +212,7 @@
                 Cambia los filtros o agrega operaciones.
               </p>
             </div>
-          </div>
+          </div> 
         </div>
       </section>
 
@@ -194,22 +223,22 @@
       >
         <h2 class="mb-4 font-bold text-slate-700 text-4xl">Nueva operación</h2>
 
-        <form>
+        <form id="new-operation-form">
           <div class="flex flex-col">
             <label for="description" class="font-bold py-2">Descripción</label>
             <input
               type="text"
               name="description"
-              id=""
+              id="new-operation-description"
               class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"
             />
           </div>
           <div class="flex flex-col">
             <label for="amount" class="font-bold py-2">Monto</label>
             <input
-              type="text"
+              type="number"
               name="amount"
-              id=""
+              id="new-operation-amount"
               class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"
             />
           </div>
@@ -217,7 +246,7 @@
             <label for="type" class="font-bold py-2">Tipo</label>
             <select
               name="type"
-              id=""
+              id="new-operation-type"
               class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"
             >
               <option value="gasto">Gasto</option>
@@ -239,7 +268,7 @@
             <input
               type="date"
               name="descrition"
-              id=""
+              id="new-operation-date"
               class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"
             />
           </div>
