@@ -10,7 +10,6 @@ const categories = JSON.parse(localStorage.getItem("Categories")) || [
   "Trabajo",
 ];
 
-
 /* operations*/
 
 /* Nueva Operación */
@@ -65,7 +64,7 @@ if (window.location.pathname.includes("index.html")) {
     showFilters = !showFilters;
   });
 
-  /* nueva operación */
+  /* new operation */
   const newOpForm = document.getElementById("new-operation-form");
   const newOpDescriptionInput = document.getElementById(
     "new-operation-description"
@@ -102,14 +101,14 @@ if (window.location.pathname.includes("index.html")) {
   const operationsListDesktop = document.getElementById(
     "operation-list-desktop"
   );
-  const operationsListDesktopContainer = document.getElementById('operation-list-desktop-container');
+  const operationsListDesktopContainer = document.getElementById(
+    "operation-list-desktop-container"
+  );
   const emptyOperationList = document.getElementById("empty-operation-list");
-  
 
   function renderOperations() {
     if (operations.length === 0) {
       emptyOperationList.classList.remove("hidden");
-      operationsListDesktopContainer.classList.add("md:hidden");
       operationsListMobile.classList.add("hidden");
       operationsListDesktop.classList.add("hidden");
     } else {
@@ -124,16 +123,20 @@ if (window.location.pathname.includes("index.html")) {
     }
   }
 
-function renderMobileOperations() {
+  function renderMobileOperations() {
     operationsListMobile.innerHTML = "";
 
     operations.forEach((operation, index) => {
-        const amountColor = operation.type === 'gasto' ? 'text-red-500' : 'text-green-500';
-        const amountDisplay = operation.type === 'gasto' ? `- $${operation.amount}` : `$${operation.amount}`;
+      const amountColor =
+        operation.type === "gasto" ? "text-red-500" : "text-green-500";
+      const amountDisplay =
+        operation.type === "gasto"
+          ? `- $${operation.amount}`
+          : `$${operation.amount}`;
 
-        const li = document.createElement("li");
-        li.classList.add("mb-5");
-        li.innerHTML = `
+      const li = document.createElement("li");
+      li.classList.add("mb-5");
+      li.innerHTML = `
             <div class="flex justify-between items-center">
                 <p class="font-semibold text-md">${operation.description}</p>
                 <p class="px-1 bg-green-200 text-green-800 rounded">${operation.category}</p>
@@ -146,16 +149,20 @@ function renderMobileOperations() {
                 </div>
             </div>
         `;
-        operationsListMobile.appendChild(li);
+      operationsListMobile.appendChild(li);
     });
-}
+  }
 
-function renderDesktopOperations() {
-  operationsListDesktop.innerHTML = "";
+  function renderDesktopOperations() {
+    operationsListDesktop.innerHTML = "";
 
-  operations.forEach((operation, index) => {
-      const amountColor = operation.type === 'gasto' ? 'text-red-500' : 'text-green-500';
-      const amountDisplay = operation.type === 'gasto' ? `- $${operation.amount}` : `$ ${operation.amount}`;
+    operations.forEach((operation, index) => {
+      const amountColor =
+        operation.type === "gasto" ? "text-red-500" : "text-green-500";
+      const amountDisplay =
+        operation.type === "gasto"
+          ? `- $${operation.amount}`
+          : `$ ${operation.amount}`;
 
       const tr = document.createElement("tr");
       tr.innerHTML = `
@@ -171,66 +178,70 @@ function renderDesktopOperations() {
           </td>
       `;
       operationsListDesktop.appendChild(tr);
-  });
+    });
+  }
 
-}
-
-function opDeleteBtns() {
+  function opDeleteBtns() {
     document.querySelectorAll(".deleteOperationMobile").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-            const index = e.target.getAttribute("data-index");
-            const operation = operations[index];
-            if (
-                confirm(
-                    `¿Estás seguro de que deseas eliminar la operación "${operation.description}"?`
-                )
-            ) {
-                operations.splice(index, 1);
-                localStorage.setItem("Operations", JSON.stringify(operations));
-                renderOperations();
-            }
-        });
+      btn.addEventListener("click", (e) => {
+        const index = e.target.getAttribute("data-index");
+        const operation = operations[index];
+        if (
+          confirm(
+            `¿Estás seguro de que deseas eliminar la operación "${operation.description}"?`
+          )
+        ) {
+          operations.splice(index, 1);
+          localStorage.setItem("Operations", JSON.stringify(operations));
+          renderOperations();
+        }
+      });
     });
 
     document.querySelectorAll(".deleteOperationDesktop").forEach((btn) => {
       btn.addEventListener("click", (e) => {
-          const index = e.currentTarget.getAttribute("data-index");
-          const operation = operations[index];
-          if (
-              confirm(
-                  `¿Estás seguro de que deseas eliminar la operación "${operation.description}"?`
-              )
-          ) {
-              operations.splice(index, 1);
-              localStorage.setItem("Operations", JSON.stringify(operations));
-              renderOperations();
-          }
+        const index = e.currentTarget.getAttribute("data-index");
+        const operation = operations[index];
+        if (
+          confirm(
+            `¿Estás seguro de que deseas eliminar la operación "${operation.description}"?`
+          )
+        ) {
+          operations.splice(index, 1);
+          localStorage.setItem("Operations", JSON.stringify(operations));
+          renderOperations();
+        }
       });
-  });
-}
+    });
+  }
 
   /* on init */
   renderOperations();
   updateBalance();
 
-/* balance */
-function updateBalance() {
-  const earningsNumber = document.getElementById('number-ganancias');
-  const expensesNumber = document.getElementById('number-gastos');
-  const totalNumber = document.getElementById('number-total');
+  /* balance */
+  function updateBalance() {
+    const earningsNumber = document.getElementById("number-ganancias");
+    const expensesNumber = document.getElementById("number-gastos");
+    const totalNumber = document.getElementById("number-total");
 
-  const earnings = operations.filter(operation => operation.type === 'ganancia').reduce((total, op) => total + parseFloat(op.amount), 0);
-  earningsNumber.textContent = `+ $${earnings}`;
+    const earnings = operations
+      .filter((operation) => operation.type === "ganancia")
+      .reduce((total, op) => total + parseFloat(op.amount), 0);
+    earningsNumber.textContent = `+ $${earnings}`;
 
-  const expenses = operations.filter(operation => operation.type === 'gasto').reduce((total, op) => total + parseFloat(op.amount), 0);
-  expensesNumber.textContent = `- $${expenses}`;
+    const expenses = operations
+      .filter((operation) => operation.type === "gasto")
+      .reduce((total, op) => total + parseFloat(op.amount), 0);
+    expensesNumber.textContent = `- $${expenses}`;
 
-  const total = earnings - expenses;
-  totalNumber.textContent = `${total < 0 ? '- ' : '+ '}$${Math.abs(total)}`;
-  totalNumber.className = total < 0 ? 'text-red-500 font-bold text-xl' : 'text-green-500 font-bold text-xl';
-
-}
-
+    const total = earnings - expenses;
+    totalNumber.textContent = `${total < 0 ? "- " : "+ "}$${Math.abs(total)}`;
+    totalNumber.className =
+      total < 0
+        ? "text-red-500 font-bold text-xl"
+        : "text-green-500 font-bold text-xl";
+  }
 }
 
 /* categories */
