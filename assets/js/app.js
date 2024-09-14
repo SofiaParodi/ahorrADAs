@@ -104,48 +104,95 @@ if (window.location.pathname.includes("index.html")) {
   );
 
   function renderOperations() {
-    /* mobile */
+    renderMobileOperations();
+    renderDesktopOperations();
+    opDeleteBtns();
+}
+
+function renderMobileOperations() {
     operationsListMobile.innerHTML = "";
+
     operations.forEach((operation, index) => {
-      const li = document.createElement("li");
-      li.classList.add("mb-5");
-      li.innerHTML = `
+        const amountColor = operation.type === 'gasto' ? 'text-red-500' : 'text-green-500';
+        const amountDisplay = operation.type === 'gasto' ? `- $${operation.amount}` : `$${operation.amount}`;
+
+        const li = document.createElement("li");
+        li.classList.add("mb-5");
+        li.innerHTML = `
             <div class="flex justify-between items-center">
-              <p class="font-bold text-xl">${operation.description}</p>
-              <p class="px-1 bg-green-200 text-green-800 rounded">${operation.category}</p>
+                <p class="font-semibold text-md">${operation.description}</p>
+                <p class="px-1 bg-green-200 text-green-800 rounded">${operation.category}</p>
             </div>
-
             <div class="mt-3 flex justify-between items-center">
-              <div class="font-bold text-xl text-red-500">$ ${operation.amount}</div>
-
-              <div>
-                <button data-index="${index}" class="mr-3 px-2 py-1 bg-blue-400 rounded-md text-white">Editar</button>
-                <button data-index="${index}" class="px-2 py-1 bg-red-400 rounded-md text-white">Eliminar</button>
-              </div>
+                <div class="font-bold text-2xl ${amountColor}">${amountDisplay}</div>
+                <div>
+                    <button data-index="${index}" class="mr-3 px-2 py-1 bg-blue-400 rounded-md text-white">Editar</button>
+                    <button data-index="${index}" class="deleteOperationMobile px-2 py-1 bg-red-400 rounded-md text-white">Eliminar</button>
+                </div>
             </div>
-    `;
-      operationsListMobile.appendChild(li);
+        `;
+        operationsListMobile.appendChild(li);
     });
+}
 
-    /* desktop */
-    operationsListDesktop.innerHTML = "";
-    operations.forEach((operation, index) => {
+function renderDesktopOperations() {
+  operationsListDesktop.innerHTML = "";
+
+  operations.forEach((operation, index) => {
+      const amountColor = operation.type === 'gasto' ? 'text-red-500' : 'text-green-500';
+      const amountDisplay = operation.type === 'gasto' ? `- $${operation.amount}` : `$ ${operation.amount}`;
+
       const tr = document.createElement("tr");
       tr.innerHTML = `
-                <td class="px-1 py-3 text-center">${operation.description}</td>
-                <td class="px-1 py-3 text-center">${operation.category}</td>
-                <td class="px-1 py-3 text-center">${operation.date}</td>
-                <td class="px-1 py-3 text-center">$ ${operation.amount}</td>
-                <td class="px-1 py-3 text-center">
-                  <div class="flex justify-center space-x-4">
-                    <button data-index="${index}" class="text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none"><i class="fa-solid fa-pen-to-square"></i></button>
-                    <button data-index="${index}" class="text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none"><i class="fa-solid fa-trash"></i></button>
-                  </div>
-                </td>
-                `;
-                operationsListDesktop.appendChild(tr);
+          <td class="px-1 py-3 text-center font-bold">${operation.description}</td>
+          <td class="px-1 py-3 text-center">${operation.category}</td>
+          <td class="px-1 py-3 text-center">${operation.date}</td>
+          <td class="px-1 py-3 text-center font-bold ${amountColor}">${amountDisplay}</td>
+          <td class="px-1 py-3 text-center">
+              <div class="flex justify-center space-x-4">
+                  <button data-index="${index}" class="editOperationDesktop text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none"><i class="fa-solid fa-pen-to-square"></i></button>
+                  <button data-index="${index}" class="deleteOperationDesktop text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none"><i class="fa-solid fa-trash"></i></button>
+              </div>
+          </td>
+      `;
+      operationsListDesktop.appendChild(tr);
+  });
+
+}
+
+function opDeleteBtns() {
+    document.querySelectorAll(".deleteOperationMobile").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            const index = e.target.getAttribute("data-index");
+            const operation = operations[index];
+            if (
+                confirm(
+                    `¿Estás seguro de que deseas eliminar la operación "${operation.description}"?`
+                )
+            ) {
+                operations.splice(index, 1);
+                localStorage.setItem("Operations", JSON.stringify(operations));
+                renderOperations();
+            }
+        });
     });
-  }
+
+    document.querySelectorAll(".deleteOperationDesktop").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+          const index = e.currentTarget.getAttribute("data-index");
+          const operation = operations[index];
+          if (
+              confirm(
+                  `¿Estás seguro de que deseas eliminar la operación "${operation.description}"?`
+              )
+          ) {
+              operations.splice(index, 1);
+              localStorage.setItem("Operations", JSON.stringify(operations));
+              renderOperations();
+          }
+      });
+  });
+}
 
   /* on init */
   renderOperations();
