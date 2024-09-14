@@ -10,6 +10,7 @@ const categories = JSON.parse(localStorage.getItem("Categories")) || [
   "Trabajo",
 ];
 
+
 /* operations*/
 
 /* Nueva Operación */
@@ -119,6 +120,7 @@ if (window.location.pathname.includes("index.html")) {
       renderMobileOperations();
       renderDesktopOperations();
       opDeleteBtns();
+      updateBalance();
     }
   }
 
@@ -209,6 +211,26 @@ function opDeleteBtns() {
 
   /* on init */
   renderOperations();
+  updateBalance();
+
+/* balance */
+function updateBalance() {
+  const earningsNumber = document.getElementById('number-ganancias');
+  const expensesNumber = document.getElementById('number-gastos');
+  const totalNumber = document.getElementById('number-total');
+
+  const earnings = operations.filter(operation => operation.type === 'ganancia').reduce((total, op) => total + parseFloat(op.amount), 0);
+  earningsNumber.textContent = `+ $${earnings}`;
+
+  const expenses = operations.filter(operation => operation.type === 'gasto').reduce((total, op) => total + parseFloat(op.amount), 0);
+  expensesNumber.textContent = `- $${expenses}`;
+
+  const total = earnings - expenses;
+  totalNumber.textContent = `${total < 0 ? '- ' : '+ '}$${Math.abs(total)}`;
+  totalNumber.className = total < 0 ? 'text-red-500 font-bold text-xl' : 'text-green-500 font-bold text-xl';
+
+}
+
 }
 
 /* categories */
