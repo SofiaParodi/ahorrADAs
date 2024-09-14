@@ -72,7 +72,6 @@ if (window.location.pathname.includes("index.html")) {
   const newOpAmountInput = document.getElementById("new-operation-amount");
   const newOpTypeSelect = document.getElementById("new-operation-type");
   const newOpDateInput = document.getElementById("new-operation-date");
-  const emptyOperationList = document.getElementById("empty-operation-list");
 
   newOpForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -102,12 +101,26 @@ if (window.location.pathname.includes("index.html")) {
   const operationsListDesktop = document.getElementById(
     "operation-list-desktop"
   );
+  const operationsListDesktopContainer = document.getElementById('operation-list-desktop-container');
+  const emptyOperationList = document.getElementById("empty-operation-list");
+  
 
   function renderOperations() {
-    renderMobileOperations();
-    renderDesktopOperations();
-    opDeleteBtns();
-}
+    if (operations.length === 0) {
+      emptyOperationList.classList.remove("hidden");
+      operationsListDesktopContainer.classList.add("md:hidden");
+      operationsListMobile.classList.add("hidden");
+      operationsListDesktop.classList.add("hidden");
+    } else {
+      document.getElementById("empty-operation-list").classList.add("hidden");
+      operationsListMobile.classList.remove("hidden");
+      operationsListDesktopContainer.classList.remove("md:hidden");
+      operationsListDesktop.classList.remove("hidden");
+      renderMobileOperations();
+      renderDesktopOperations();
+      opDeleteBtns();
+    }
+  }
 
 function renderMobileOperations() {
     operationsListMobile.innerHTML = "";
