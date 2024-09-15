@@ -19,6 +19,7 @@ const newOperationBtn = document.getElementById("button-nueva-operacion");
 const cancelOpBtn = document.getElementById("cancelOpBtn");
 const filterCategorySelect = document.getElementById("filtro-categoria");
 const newOpCategorySelect = document.getElementById("new-operation-category");
+let editIndex;
 
 if (window.location.pathname.includes("index.html")) {
   function populateCategoriesSelect(selectElement, categories) {
@@ -40,6 +41,7 @@ if (window.location.pathname.includes("index.html")) {
   }
 
   newOperationBtn.addEventListener("click", () => {
+    editIndex = undefined;
     toggleNewOpForm();
   });
 
@@ -75,25 +77,37 @@ if (window.location.pathname.includes("index.html")) {
 
   newOpForm.addEventListener("submit", (e) => {
     e.preventDefault();
-
-    const description = newOpDescriptionInput.value;
-    const amount = newOpAmountInput.value;
+  
+    const description = newOpDescriptionInput.value.trim();
+    const amount = parseFloat(newOpAmountInput.value);
     const type = newOpTypeSelect.value;
     const category = newOpCategorySelect.value;
     const date = newOpDateInput.value;
-
-    const operationToAdd = {
-      description: description,
-      amount: amount,
-      type: type,
-      category: category,
-      date: date,
+  
+    if (!description || !amount || !date) {
+      alert('Por favor, completa todos los campos.');
+      return;
+    }
+  
+    const operationToAddOrUpdate = {
+      description,
+      amount,
+      type,
+      category,
+      date
     };
-
-    operations.push(operationToAdd);
+  
+    if (editIndex === undefined) {
+      operations.push(operationToAddOrUpdate);
+    } else {
+      operations[editIndex] = operationToAddOrUpdate;
+    }
+  
     localStorage.setItem("Operations", JSON.stringify(operations));
     renderOperations();
     newOpForm.reset();
+    toggleNewOpForm();
+
   });
 
   /* render operations */
@@ -111,6 +125,7 @@ if (window.location.pathname.includes("index.html")) {
       emptyOperationList.classList.remove("hidden");
       operationsListMobile.classList.add("hidden");
       operationsListDesktop.classList.add("hidden");
+      operationsListDesktopContainer.classList.add("md:hidden");
     } else {
       document.getElementById("empty-operation-list").classList.add("hidden");
       operationsListMobile.classList.remove("hidden");
@@ -119,6 +134,7 @@ if (window.location.pathname.includes("index.html")) {
       renderMobileOperations();
       renderDesktopOperations();
       opDeleteBtns();
+      opEditBtns();
       updateBalance();
     }
   }
@@ -144,7 +160,7 @@ if (window.location.pathname.includes("index.html")) {
             <div class="mt-3 flex justify-between items-center">
                 <div class="font-bold text-2xl ${amountColor}">${amountDisplay}</div>
                 <div>
-                    <button data-index="${index}" class="mr-3 px-2 py-1 bg-blue-400 rounded-md text-white">Editar</button>
+                    <button data-index="${index}" class="editOperationMobile mr-3 px-2 py-1 bg-blue-400 rounded-md text-white">Editar</button>
                     <button data-index="${index}" class="deleteOperationMobile px-2 py-1 bg-red-400 rounded-md text-white">Eliminar</button>
                 </div>
             </div>
@@ -213,6 +229,48 @@ if (window.location.pathname.includes("index.html")) {
         }
       });
     });
+  }
+
+  /* edit operation */
+  function showOperationForm(index = null) {
+    if (index === null) {
+      newOpDescriptionInput.value = "";
+      newOpAmountInput.value = "";
+      newOpTypeSelect.value = "gasto";
+      newOpCategorySelect.value = categories[0];
+      newOpDateInput.value = "";
+      
+      editIndex = undefined;
+    } else {
+      const operation = operations[index];
+      
+      newOpDescriptionInput.value = operation.description;
+      newOpAmountInput.value = operation.amount;
+      newOpTypeSelect.value = operation.type;
+      newOpCategorySelect.value = operation.category;
+      newOpDateInput.value = operation.date;
+
+      editIndex = index;
+    }
+    
+    toggleNewOpForm();
+  }
+
+  function opEditBtns() {
+    document.querySelectorAll(".editOperationMobile").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const index = e.target.getAttribute("data-index");
+        showOperationForm(index);
+      });
+    });
+
+    document.querySelectorAll(".editOperationDesktop").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const index = e.currentTarget.getAttribute("data-index");
+        showOperationForm(index);
+      });
+    });
+
   }
 
   /* on init */
