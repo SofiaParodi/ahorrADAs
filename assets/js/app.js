@@ -416,3 +416,46 @@ const headerNav = document.getElementById("headerNav");
 buttonMenu.addEventListener("click", () => {
   headerNav.classList.toggle("hidden");
 });
+
+/* Reportes */
+
+const OPERATIONS = {
+  EARNINGS: 'GANANCIA',
+  EXPENSES: 'GASTO',
+}
+
+const operation = {
+  description,
+  amount,
+  type,
+  category,
+  date
+};
+
+const getBalance = (operations) =>{
+  return operations.reduce(
+    (total, operation) => {
+      if (operation.type === OPERATIONS.EARNINGS) {
+        return {
+          ...total,
+          earnings: total.earnings + operation.amount,
+          balance: total.balance + operation.amount,
+        }
+      }
+
+      if (operation.type === OPERATIONS.EXPENSES) {
+        return {
+          ...total,
+          expenses: total.expenses - operation.amount,
+          balance: total.balance - operation.amount,
+        }
+      }
+    },
+    {
+      earnings: 0,
+      expenses:0,
+      balance: 0,
+    }
+  )
+}
+
