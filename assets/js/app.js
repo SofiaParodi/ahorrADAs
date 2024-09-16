@@ -302,6 +302,41 @@ if (window.location.pathname.includes("index.html")) {
   }
 }
 
+/* Filtros order */
+
+const filterLabelType = document.getElementById('filtro-tipo');
+const filterLabelCategory = document.getElementById('filtro-categoria');
+const filterLabelDate = doument.getElementById('filtro-fecha');
+const filterLabelOrder = document.getElementById('filtro-ordenar');
+
+
+const filterType = (type, operaciones) => {
+  return operations.filter((operation) => operation.type === type)
+}
+
+const filterCategory = (category, operaciones) => {
+  return operations.filter((operation) => operation.category === category)
+}
+
+// Op inicialiazación
+const filterOperations = () => {
+  const type = filterLabelType.value
+  const category = filterLabelCategory.value
+  const date = new Date(filterLabelDate.value.replace(/-/g, '/'))
+  const order = filterLabelOrder.value
+
+
+}
+
+// Inicializaciones
+
+const inicializarBalance = () => {
+  filterLabelType.addEventListener('change', filterOperations)
+  filterLabelCategory.addEventListener('change', filterOperations)
+  filterLabelDate.addEventListener('change', filterOperations)
+  filterLabelOrder.addEventListener('change', filterOperations)
+}
+
 /* categories */
 const categoriesForm = document.getElementById("categories-form");
 const categoriesList = document.getElementById("categories-list");
