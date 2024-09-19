@@ -310,12 +310,52 @@ const filterLabelDate = doument.getElementById('filtro-fecha');
 const filterLabelOrder = document.getElementById('filtro-ordenar');
 
 
-const filterType = (type, operaciones) => {
-  return operations.filter((operation) => operation.type === type)
+const filterType = (type, operationToAddOrUpdate) => {
+  return operationToAddOrUpdate.filter((operation) => operation.type === type)
 }
 
-const filterCategory = (category, operaciones) => {
-  return operations.filter((operation) => operation.category === category)
+const filterCategory = (category, operationToAddOrUpdate) => {
+  return operationToAddOrUpdate.filter((operation) => operation.category === category)
+}
+
+const filterDateLaterOrEquivalent = (date, operationToAddOrUpdate) => {
+  return operationToAddOrUpdate.filter((operation) => {
+    const dateOperation = new Date(operation.date)
+    return dateOperation.getTime() >= date.getTime()
+  })
+}
+
+const filterPerMonth = (month, year, operationToAddOrUpdate) => {
+  return operationToAddOrUpdate.filter((operation) => {
+    const date = new Date(operation.date)
+    return date.getFullYear() === year && date.getMonth() === month
+  })
+}
+
+const orderPerDate = (operationToAddOrUpdate, order) => {
+  return [...operationToAddOrUpdate].sort((a, b) => {
+    const dateA = new Date(a.date)
+    const dateB = new Date(b.date)
+    return order === 'ASC'
+    ? dateA.getTime() - dateB.getTime()
+    : dateB.getTime() - dateA.getTime()
+  })
+}
+
+const orderPerAmount = (operationToAddOrUpdate, order) => {
+  return [...operationToAddOrUpdate].sort((a,b) => {
+    return order === 'ASC' ? a.amount - b.amount : b.amount - a.amount
+  }) 
+}
+
+const orderPerDecription = (operationToAddOrUpdate, order) => {
+  return [...operationToAddOrUpdate].sort ((a,b) => {
+    const dateA = new Date(a)
+    const dateB = new Date(b)
+    return order === 'ASC'
+    ? dateA.getTime() < dateB.getTime()
+    : dateA.getTime() > dateB.getTime()
+  })
 }
 
 // Op inicialiazación
@@ -325,6 +365,43 @@ const filterOperations = () => {
   const date = new Date(filterLabelDate.value.replace(/-/g, '/'))
   const order = filterLabelOrder.value
 
+  //let operationToAddOrUpdate = ???
+
+  if (type !== 'TODOS') {
+    operationToAddOrUpdate = filterType(type, operationToAddOrUpdate)
+  }
+
+  if (category !== 'TODAS') {
+    operationToAddOrUpdate.filterCategory(category, operationToAddOrUpdate)
+  }
+
+  operationToAddOrUpdate = filterDateLaterOrEquivalent(date, operationToAddOrUpdate)
+
+  switch (order) {
+    case 'MAS_RECIENTES':
+      operationToAddOrUpdate = orderPerDate(operationToAddOrUpdate, 'DESC')
+      break
+    case 'MENOS_RECIENTES':
+      operationToAddOrUpdate = orderPerDate(operationToAddOrUpdate, 'ASC')
+      break
+    case 'MAYOR_MONTO':
+      operationToAddOrUpdate = orderPerAmount(operationToAddOrUpdate, 'DESC')
+      break
+    case 'MENOR_MONTO':
+      operationToAddOrUpdate = orderPerAmount(operationToAddOrUpdate, 'ASC')
+      break
+    case 'A/Z':
+      operationToAddOrUpdate = orderPerDecription(operationToAddOrUpdate, 'ASC')
+      break
+    case 'Z/A':
+      operationToAddOrUpdate = orderPerDecription(operationToAddOrUpdate, 'DESC')
+      break
+      default:
+  }
+
+  /* 
+   actualizarOperaciones(operaciones)
+  actualizarBalance(operaciones) */
 
 }
 
@@ -335,7 +412,7 @@ const inicializarBalance = () => {
   filterLabelCategory.addEventListener('change', filterOperations)
   filterLabelDate.addEventListener('change', filterOperations)
   filterLabelOrder.addEventListener('change', filterOperations)
-}
+} 
 
 /* categories */
 const categoriesForm = document.getElementById("categories-form");
