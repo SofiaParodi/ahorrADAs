@@ -399,11 +399,12 @@ const filterOperations = () => {
       default:
   }
 
-  /* 
-   actualizarOperaciones(operaciones)
-  actualizarBalance(operaciones) */
+  renderOperations(operationToAddOrUpdate)
+  updateBalance(operationToAddOrUpdate)
 
 }
+
+console.log('inicializarBalance')
 
 // Inicializaciones
 
