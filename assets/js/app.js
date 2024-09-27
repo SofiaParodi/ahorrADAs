@@ -23,6 +23,7 @@ let editIndex;
 
 if (window.location.pathname.includes("index.html")) {
   function populateCategoriesSelect(selectElement, categories) {
+    selectElement.innerHTML = ""; // Limpiar opciones previas
     categories.forEach((category) => {
       const optionElement = document.createElement("option");
       optionElement.value = category;
@@ -31,7 +32,7 @@ if (window.location.pathname.includes("index.html")) {
     });
   }
 
-  populateCategoriesSelect(filterCategorySelect, categories);
+  populateCategoriesSelect(filterCategorySelect, ["Todas", ...categories]);
   populateCategoriesSelect(newOpCategorySelect, categories);
 
   function toggleNewOpForm() {
@@ -77,37 +78,36 @@ if (window.location.pathname.includes("index.html")) {
 
   newOpForm.addEventListener("submit", (e) => {
     e.preventDefault();
-  
+
     const description = newOpDescriptionInput.value.trim();
     const amount = parseFloat(newOpAmountInput.value);
     const type = newOpTypeSelect.value;
     const category = newOpCategorySelect.value;
     const date = newOpDateInput.value;
-  
+
     if (!description || !amount || !date) {
-      alert('Por favor, completa todos los campos.');
+      alert("Por favor, completa todos los campos.");
       return;
     }
-  
+
     const operationToAddOrUpdate = {
       description,
       amount,
       type,
       category,
-      date
+      date,
     };
-  
+
     if (editIndex === undefined) {
       operations.push(operationToAddOrUpdate);
     } else {
       operations[editIndex] = operationToAddOrUpdate;
     }
-  
+
     localStorage.setItem("Operations", JSON.stringify(operations));
     renderOperations();
     newOpForm.reset();
     toggleNewOpForm();
-
   });
 
   /* render operations */
@@ -120,29 +120,29 @@ if (window.location.pathname.includes("index.html")) {
   );
   const emptyOperationList = document.getElementById("empty-operation-list");
 
-  function renderOperations() {
-    if (operations.length === 0) {
+  function renderOperations(filteredOperations = operations) {
+    if (filteredOperations.length === 0) {
       emptyOperationList.classList.remove("hidden");
       operationsListMobile.classList.add("hidden");
       operationsListDesktop.classList.add("hidden");
       operationsListDesktopContainer.classList.add("md:hidden");
     } else {
-      document.getElementById("empty-operation-list").classList.add("hidden");
+      emptyOperationList.classList.add("hidden");
       operationsListMobile.classList.remove("hidden");
       operationsListDesktopContainer.classList.remove("md:hidden");
       operationsListDesktop.classList.remove("hidden");
-      renderMobileOperations();
-      renderDesktopOperations();
+      renderMobileOperations(filteredOperations);
+      renderDesktopOperations(filteredOperations);
       opDeleteBtns();
       opEditBtns();
-      updateBalance();
+      updateBalance(filteredOperations);
     }
   }
 
-  function renderMobileOperations() {
+  function renderMobileOperations(filteredOperations) {
     operationsListMobile.innerHTML = "";
 
-    operations.forEach((operation, index) => {
+    filteredOperations.forEach((operation, index) => {
       const amountColor =
         operation.type === "gasto" ? "text-red-500" : "text-green-500";
       const amountDisplay =
@@ -169,10 +169,10 @@ if (window.location.pathname.includes("index.html")) {
     });
   }
 
-  function renderDesktopOperations() {
+  function renderDesktopOperations(filteredOperations) {
     operationsListDesktop.innerHTML = "";
 
-    operations.forEach((operation, index) => {
+    filteredOperations.forEach((operation, index) => {
       const amountColor =
         operation.type === "gasto" ? "text-red-500" : "text-green-500";
       const amountDisplay =
@@ -239,11 +239,11 @@ if (window.location.pathname.includes("index.html")) {
       newOpTypeSelect.value = "gasto";
       newOpCategorySelect.value = categories[0];
       newOpDateInput.value = "";
-      
+
       editIndex = undefined;
     } else {
       const operation = operations[index];
-      
+
       newOpDescriptionInput.value = operation.description;
       newOpAmountInput.value = operation.amount;
       newOpTypeSelect.value = operation.type;
@@ -252,7 +252,7 @@ if (window.location.pathname.includes("index.html")) {
 
       editIndex = index;
     }
-    
+
     toggleNewOpForm();
   }
 
@@ -270,25 +270,20 @@ if (window.location.pathname.includes("index.html")) {
         showOperationForm(index);
       });
     });
-
   }
 
-  /* on init */
-  renderOperations();
-  updateBalance();
-
   /* balance */
-  function updateBalance() {
+  function updateBalance(filteredOperations = operations) {
     const earningsNumber = document.getElementById("number-ganancias");
     const expensesNumber = document.getElementById("number-gastos");
     const totalNumber = document.getElementById("number-total");
 
-    const earnings = operations
+    const earnings = filteredOperations
       .filter((operation) => operation.type === "ganancia")
       .reduce((total, op) => total + parseFloat(op.amount), 0);
     earningsNumber.textContent = `+ $${earnings}`;
 
-    const expenses = operations
+    const expenses = filteredOperations
       .filter((operation) => operation.type === "gasto")
       .reduce((total, op) => total + parseFloat(op.amount), 0);
     expensesNumber.textContent = `- $${expenses}`;
@@ -300,6 +295,121 @@ if (window.location.pathname.includes("index.html")) {
         ? "text-red-500 font-bold text-xl"
         : "text-green-500 font-bold text-xl";
   }
+
+  /* Filtros y orden */
+  const filterLabelType = document.getElementById("filtro-tipo");
+  const filterLabelCategory = document.getElementById("filtro-categoria");
+  const filterLabelDate = document.getElementById("filtro-fecha");
+  const filterLabelOrder = document.getElementById("filtro-ordenar");
+
+  const filterOperations = () => {
+    let operationToAddOrUpdate = [...operations]; 
+
+    const type = filterLabelType.value;
+    const category = filterLabelCategory.value;
+    const date = new Date(filterLabelDate.value);
+    const order = filterLabelOrder.value;
+
+    if (type !== "todos") {
+      operationToAddOrUpdate = filterType(type, operationToAddOrUpdate);
+    }
+
+    if (category !== "Todas") {
+      operationToAddOrUpdate = filterCategory(category, operationToAddOrUpdate);
+    }
+
+    if (!isNaN(date.getTime())) {
+      operationToAddOrUpdate = filterDateLaterOrEquivalent(
+        date,
+        operationToAddOrUpdate
+      );
+    }
+
+    switch (order) {
+      case "mas-reciente":
+        operationToAddOrUpdate = orderPerDate(operationToAddOrUpdate, "DESC");
+        break;
+      case "menos-reciente":
+        operationToAddOrUpdate = orderPerDate(operationToAddOrUpdate, "ASC");
+        break;
+      case "mayor-monto":
+        operationToAddOrUpdate = orderPerAmount(operationToAddOrUpdate, "DESC");
+        break;
+      case "menor-monto":
+        operationToAddOrUpdate = orderPerAmount(operationToAddOrUpdate, "ASC");
+        break;
+      case "a-z":
+        operationToAddOrUpdate = orderPerDescription(
+          operationToAddOrUpdate,
+          "ASC"
+        );
+        break;
+      case "z-a":
+        operationToAddOrUpdate = orderPerDescription(
+          operationToAddOrUpdate,
+          "DESC"
+        );
+        break;
+      default:
+        break;
+    }
+
+    renderOperations(operationToAddOrUpdate);
+    updateBalance(operationToAddOrUpdate);
+  };
+
+  /* Funciones de filtro */
+  const filterType = (type, operations) => {
+    return operations.filter((operation) => operation.type === type);
+  };
+
+  const filterCategory = (category, operations) => {
+    return operations.filter((operation) => operation.category === category);
+  };
+
+  const filterDateLaterOrEquivalent = (date, operations) => {
+    return operations.filter((operation) => {
+      const dateOperation = new Date(operation.date);
+      return dateOperation.getTime() >= date.getTime();
+    });
+  };
+
+  /* Funciones de ordenamiento */
+  const orderPerDate = (operations, order) => {
+    return [...operations].sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return order === "ASC"
+        ? dateA.getTime() - dateB.getTime()
+        : dateB.getTime() - dateA.getTime();
+    });
+  };
+
+  const orderPerAmount = (operations, order) => {
+    return [...operations].sort((a, b) => {
+      return order === "ASC" ? a.amount - b.amount : b.amount - a.amount;
+    });
+  };
+
+  const orderPerDescription = (operations, order) => {
+    return [...operations].sort((a, b) => {
+      const descriptionA = a.description.toLowerCase();
+      const descriptionB = b.description.toLowerCase();
+      if (descriptionA < descriptionB) return order === "ASC" ? -1 : 1;
+      if (descriptionA > descriptionB) return order === "ASC" ? 1 : -1;
+      return 0;
+    });
+  };
+
+  // Inicialización de eventos para filtros
+  filterLabelType.addEventListener("change", filterOperations);
+  filterLabelCategory.addEventListener("change", filterOperations);
+  filterLabelDate.addEventListener("change", filterOperations);
+  filterLabelOrder.addEventListener("change", filterOperations);
+
+  /* on init */
+  renderOperations();
+  updateBalance();
 }
 
 /* categories */
