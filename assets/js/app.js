@@ -10,7 +10,36 @@ const categories = JSON.parse(localStorage.getItem("Categories")) || [
   "Trabajo",
 ];
 
-/* operations*/
+/* toggle pages */
+const navbarCategoriesBtn = document.getElementById("navbar-categories-btn");
+const navbarBalanceBtn = document.getElementById("navbar-balance-btn");
+const navbarReportsBtn = document.getElementById("navbar-reports-btn");
+const balancePage = document.getElementById("balance-page");
+const categoriesPage = document.getElementById("categories-page");
+const reportsPage = document.getElementById("reports-page");
+
+/* balance */
+navbarBalanceBtn.addEventListener('click', () => {
+  balancePage.classList.remove('hidden');
+  categoriesPage.classList.add('hidden');
+  reportsPage.classList.add('hidden');
+})
+
+/* categories */
+navbarCategoriesBtn.addEventListener('click', () => {
+  balancePage.classList.add('hidden');
+  reportsPage.classList.add('hidden');
+  categoriesPage.classList.remove('hidden');
+})
+
+/* reports */
+navbarReportsBtn.addEventListener('click', () => {
+  balancePage.classList.add('hidden');
+  categoriesPage.classList.add('hidden');
+  reportsPage.classList.remove('hidden');
+})
+
+/* operations */
 
 /* Nueva Operación */
 const newOperationSection = document.getElementById("new-operation-section");
@@ -21,7 +50,6 @@ const filterCategorySelect = document.getElementById("filtro-categoria");
 const newOpCategorySelect = document.getElementById("new-operation-category");
 let editIndex;
 
-if (window.location.pathname.includes("index.html")) {
   function populateCategoriesSelect(selectElement, categories) {
     categories.forEach((category) => {
       const optionElement = document.createElement("option");
@@ -300,7 +328,6 @@ if (window.location.pathname.includes("index.html")) {
         ? "text-red-500 font-bold text-xl"
         : "text-green-500 font-bold text-xl";
   }
-}
 
 /* categories */
 const categoriesForm = document.getElementById("categories-form");
@@ -315,7 +342,6 @@ const editCategoryForm = document.getElementById("edit-category-form");
 const cancelEditBtn = document.getElementById("cancel-edit-button");
 let categoryIndex;
 
-if (window.location.pathname.includes("categories.html")) {
   /* on init */
   renderCategories();
 
@@ -407,7 +433,6 @@ if (window.location.pathname.includes("categories.html")) {
   cancelEditBtn.addEventListener("click", () => {
     toggleCategoriesList();
   });
-}
 
 /* burger menu */
 const buttonMenu = document.getElementById("buttonMenu");
