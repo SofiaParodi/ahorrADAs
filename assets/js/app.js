@@ -188,8 +188,8 @@ let editIndex;
             <div class="mt-3 flex justify-between items-center">
                 <div class="font-bold text-2xl ${amountColor}">${amountDisplay}</div>
                 <div>
-                    <button data-index="${index}" class="editOperationMobile mr-3 px-2 py-1 bg-blue-400 rounded-md text-white">Editar</button>
-                    <button data-index="${index}" class="deleteOperationMobile px-2 py-1 bg-red-400 rounded-md text-white">Eliminar</button>
+                    <button data-index="${index}" class="editOperationMobile mr-3 px-2 py-1 bg-blue-400 hover:bg-blue-500 rounded-md text-white">Editar</button>
+                    <button data-index="${index}" class="deleteOperationMobile px-2 py-1 bg-red-400 hover:bg-red-500 rounded-md text-white">Eliminar</button>
                 </div>
             </div>
         `;
@@ -475,8 +475,8 @@ let categoryIndex;
                 <p>${category}</p>
             </div>
             <div>
-            <button data-index="${index}" class="editBtn mx-2 px-3 py-1 bg-blue-200 rounded-md">Editar</button>
-            <button data-index="${index}" class="deleteBtn mx-2 px-3 py-1 bg-red-400 rounded-md">Eliminar</button>
+            <button data-index="${index}" class="editBtn mx-2 px-3 py-1 bg-blue-400 hover:bg-blue-500 rounded-md text-white">Editar</button>
+            <button data-index="${index}" class="deleteBtn mx-2 px-3 py-1 bg-red-400 hover:bg-red-500 rounded-md text-white">Eliminar</button>
             </div>
         `;
 
@@ -545,9 +545,18 @@ let categoryIndex;
 /* burger menu */
 const buttonMenu = document.getElementById("buttonMenu");
 const headerNav = document.getElementById("headerNav");
+const burgerMenuIcon = document.getElementById("iconMenu")
 
 buttonMenu.addEventListener("click", () => {
   headerNav.classList.toggle("hidden");
+  
+  if (headerNav.classList.contains("hidden")) {
+    burgerMenuIcon.classList.remove("fa-xmark");
+    burgerMenuIcon.classList.add("fa-bars");
+  } else {
+    burgerMenuIcon.classList.remove("fa-bars");
+    burgerMenuIcon.classList.add("fa-xmark");
+  }
 });
 
  /* on init */
