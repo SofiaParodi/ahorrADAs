@@ -435,9 +435,7 @@ let editIndex;
   filterLabelDate.addEventListener("change", filterOperations);
   filterLabelOrder.addEventListener("change", filterOperations);
 
-  /* on init */
-  renderOperations();
-  updateBalance();
+  
 
 
 /* categories */
@@ -453,8 +451,7 @@ const editCategoryForm = document.getElementById("edit-category-form");
 const cancelEditBtn = document.getElementById("cancel-edit-button");
 let categoryIndex;
 
-  /* on init */
-  renderCategories();
+ 
 
   /* add */
   categoriesForm.addEventListener("submit", (e) => {
@@ -552,3 +549,8 @@ const headerNav = document.getElementById("headerNav");
 buttonMenu.addEventListener("click", () => {
   headerNav.classList.toggle("hidden");
 });
+
+ /* on init */
+ renderCategories();
+ renderOperations();
+ updateBalance();
