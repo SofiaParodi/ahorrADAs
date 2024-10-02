@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- metatags -->
+ <!-- meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plataforma de gestión de finanzas personales para controlar tus ganancias y gastos">
+    <meta name="keywords" content="finanzas, ganancias, gastos, control de gastos">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Spanish">
 
     <!-- tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,15 +20,15 @@
         class="flex flex-col md:flex-row md:justify-between md:items-center md:px-5"
       >
         <div
-          class="h-16 flex flex-row justify-between items-center px-2 bg-teal-400 text-white"
+          class="h-16 flex flex-row justify-between items-center pl-4 pr-1 bg-teal-400 text-white"
         >
           <div class="text-2xl">
             <i class="fa-solid fa-wallet"></i>
             AhorrADAs
           </div>
 
-          <div class="md:hidden" id="buttonMenu">
-            <i class="fa-solid fa-bars"></i>
+          <div class="p-3 hover:bg-teal-500 rounded md:hidden" id="buttonMenu">
+            <i class="fa-solid fa-bars" id="iconMenu"></i>
           </div>
         </div>
 
@@ -33,29 +37,32 @@
           id="headerNav"
         >
           <a
-            href="./index.html"
+          href="#"
+            id="navbar-balance-btn"
             class="flex items-center md:p-2 md:rounded md:hover:bg-teal-500"
           >
             <i class="fa-solid fa-chart-line p-3 md:p-1"></i> Balance
-          </a>
-          <a
-            href="./pages/categories.html"
+      </a>
+          <a href="#"
+            id="navbar-categories-btn"
             class="flex items-center md:p-2 md:rounded md:hover:bg-teal-500"
           >
             <i class="fa-solid fa-tag p-3 md:p-1"></i> Categorías
-          </a>
+    </a>
           <a
-            href="./pages/reports.html"
+            href="#"
+            id="navbar-reports-btn"
             class="flex items-center md:p-2 md:rounded md:hover:bg-teal-500"
           >
             <i class="fa-solid fa-chart-pie p-3 md:p-1"></i> Reportes
-          </a>
+  </a>
         </div>
       </div>
     </header>
 
     <!--Main se empieza a identar -->
     <main>
+      <div id="balance-page">
       <section
         id="operations-section"
         class="my-14 md:w-11/12 md:flex md:mx-auto"
@@ -128,7 +135,7 @@
                   id="filtro-fecha"
                   type="date"
                   class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"
-                />
+                >
               </div>
               <div id="div-filtros-ordenar" class="flex flex-col my-4">
                 <label
@@ -161,7 +168,7 @@
             <h2 class="font-bold text-slate-700 text-2xl">Operaciones</h2>
             <button
               id="button-nueva-operacion"
-              class="p-2 bg-[#2dd4bf] rounded text-[#ffffff]"
+              class="p-2 bg-[#2dd4bf] rounded text-[#ffffff] hover:bg-teal-500"
             >
               + Nueva Operación
             </button>
@@ -197,12 +204,12 @@
 
       <!-- No items in operation -->
           <div id="empty-operation-list" class="h-5/6 flex flex-col items-center justify-center m-[3rem]">
-            <figure id="figure-operacion">
+            <figure id="figure-operacion" class="flex items-center justify-center">
               <img
-                class=""
+                class="md:w-1/3"
                 src="./iconos/wallet.svg"
                 alt="Ilustración de billetera y ahorros"
-              />
+              >
             </figure>
             <div id="div-text-operaciones" class="mt-[2rem]">
               <h3 class="mb-2 text-[#4a4a4a] text-xl text-center">
@@ -225,25 +232,25 @@
 
         <form id="new-operation-form">
           <div class="flex flex-col">
-            <label for="description" class="font-bold py-2">Descripción</label>
+            <label for="new-operation-description" class="font-bold py-2">Descripción</label>
             <input
               type="text"
               name="description"
               id="new-operation-description"
               class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"
-            />
+            >
           </div>
           <div class="flex flex-col">
-            <label for="amount" class="font-bold py-2">Monto</label>
+            <label for="new-operation-amount" class="font-bold py-2">Monto</label>
             <input
               type="number"
               name="amount"
               id="new-operation-amount"
               class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"
-            />
+            >
           </div>
           <div class="flex flex-col">
-            <label for="type" class="font-bold py-2">Tipo</label>
+            <label for="new-operation-type" class="font-bold py-2">Tipo</label>
             <select
               name="type"
               id="new-operation-type"
@@ -255,7 +262,7 @@
           </div>
 
           <div class="flex flex-col">
-            <label for="category" class="font-bold py-2">Categoría</label>
+            <label for="new-operation-category" class="font-bold py-2">Categoría</label>
             <select
               name="category"
               id="new-operation-category"
@@ -264,32 +271,104 @@
           </div>
 
           <div class="flex flex-col">
-            <label for="date" class="font-bold py-2">Fecha</label>
+            <label for="new-operation-date" class="font-bold py-2">Fecha</label>
             <input
               type="date"
               name="descrition"
               id="new-operation-date"
               class="h-9 px-2 bg-stone-50 outline outline-1 outline-slate-400 rounded"
-            />
+            >
           </div>
 
           <div class="mt-4 flex justify-end">
             <button
               type="button"
               id="cancelOpBtn"
-              class="p-4 py-2 bg-slate-200 rounded-md text-black"
+              class="p-4 py-2 bg-slate-200 hover:bg-slate-300 rounded-md text-black"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              class="ml-2 p-4 py-2 bg-green-500 rounded-md text-white"
+              class="ml-2 p-4 py-2 bg-green-500 hover:bg-green-600 rounded-md text-white"
             >
               Agregar
             </button>
           </div>
         </form>
       </section>
+    </div>
+
+    <div id="categories-page" class="hidden">
+      <section
+        id="categories-list-section"
+        class="w-11/12 m-auto my-14 p-5 bg-white rounded-md shadow-lg md:w-2/3"
+      >
+        <h2 class="mb-4 font-bold text-slate-700 text-4xl">Categorías</h2>
+
+        <div>
+          <label for="categories-input" class="font-bold">Nombre</label>
+          <form class="flex" id="categories-form">
+            <input
+              type="text"
+              id="categories-input"
+              class="w-full mt-1 block px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+            >
+            <button
+              type="submit"
+              class="ml-2 mt-1 p-4 py-2 bg-green-500 rounded-md text-white"
+            >
+              Agregar
+            </button>
+          </form>
+        </div>
+
+        <div class="w-full my-4">
+          <ul id="categories-list" class="divide-y divide-slate-200"></ul>
+        </div>
+      </section>
+      </div>
+
+    <section
+      id="edit-category-section"
+      class="w-11/12 m-auto my-16 p-5 bg-white rounded-md shadow-lg md:w-2/3 hidden"
+    >
+      <h2 class="mb-4 font-bold text-slate-700 text-4xl">Editar Categoría</h2>
+      <div>
+        <label for="edit-category-input" class="font-bold">Nombre</label>
+        <form class="flex flex-col" id="edit-category-form">
+          <input
+            type="text"
+            id="edit-category-input"
+            class="w-full mt-1 block px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+          >
+          <div class="mt-3 flex justify-end">
+            <button type="button" id="cancel-edit-button" class="p-4 py-2 bg-slate-200 hover:bg-slate-300 rounded-md text-black">
+              Cancelar
+            </button>
+            <button type="submit" class="ml-2 p-4 py-2 bg-green-500 hover:bg-green-600 rounded-md text-white">
+              Guardar
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  
+
+    <div class="flex justify-center hidden" id="reports-page">
+      <div id="section-reportes" class="flex flex-col m-[4rem] w-[54rem] h-fit rounded shadow-lg bg-[#ffffff]">
+        <h2 class="m-2.5 my-2 p-3 font-bold text-[#4a4a4a] text-4xl">Reportes</h2>
+      <div class="self-center m-[6rem]">
+        <figure id="figure-reportes">
+          <img class="w-[20rem]" src="./iconos/chart.svg" alt="Ilustración estadísticas">
+        </figure>
+        <div id="container-reportes" class="mt-[2rem] mb-[2.5rem]" >
+        <h3 class="p-4 text-[#4a4a4a] text-2xl text-center">Operaciones insuficientes</h3>
+        <p class="text-[#4a4a4a] text-base text-center font-light">Prueba agregando más operaciones </p>
+      </div>
+      </div>
+    </div>
+    </div>
     </main>
 
     <!-- fontawesome -->

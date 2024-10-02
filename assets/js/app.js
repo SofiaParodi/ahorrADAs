@@ -10,7 +10,36 @@ const categories = JSON.parse(localStorage.getItem("Categories")) || [
   "Trabajo",
 ];
 
-/* operations*/
+/* toggle pages */
+const navbarCategoriesBtn = document.getElementById("navbar-categories-btn");
+const navbarBalanceBtn = document.getElementById("navbar-balance-btn");
+const navbarReportsBtn = document.getElementById("navbar-reports-btn");
+const balancePage = document.getElementById("balance-page");
+const categoriesPage = document.getElementById("categories-page");
+const reportsPage = document.getElementById("reports-page");
+
+/* balance */
+navbarBalanceBtn.addEventListener('click', () => {
+  balancePage.classList.remove('hidden');
+  categoriesPage.classList.add('hidden');
+  reportsPage.classList.add('hidden');
+})
+
+/* categories */
+navbarCategoriesBtn.addEventListener('click', () => {
+  balancePage.classList.add('hidden');
+  reportsPage.classList.add('hidden');
+  categoriesPage.classList.remove('hidden');
+})
+
+/* reports */
+navbarReportsBtn.addEventListener('click', () => {
+  balancePage.classList.add('hidden');
+  categoriesPage.classList.add('hidden');
+  reportsPage.classList.remove('hidden');
+})
+
+/* operations */
 
 /* Nueva Operación */
 const newOperationSection = document.getElementById("new-operation-section");
@@ -21,7 +50,6 @@ const filterCategorySelect = document.getElementById("filtro-categoria");
 const newOpCategorySelect = document.getElementById("new-operation-category");
 let editIndex;
 
-if (window.location.pathname.includes("index.html")) {
   function populateCategoriesSelect(selectElement, categories) {
     selectElement.innerHTML = ""; // Limpiar opciones previas
     categories.forEach((category) => {
@@ -160,8 +188,8 @@ if (window.location.pathname.includes("index.html")) {
             <div class="mt-3 flex justify-between items-center">
                 <div class="font-bold text-2xl ${amountColor}">${amountDisplay}</div>
                 <div>
-                    <button data-index="${index}" class="editOperationMobile mr-3 px-2 py-1 bg-blue-400 rounded-md text-white">Editar</button>
-                    <button data-index="${index}" class="deleteOperationMobile px-2 py-1 bg-red-400 rounded-md text-white">Eliminar</button>
+                    <button data-index="${index}" class="editOperationMobile mr-3 px-2 py-1 bg-blue-400 hover:bg-blue-500 rounded-md text-white">Editar</button>
+                    <button data-index="${index}" class="deleteOperationMobile px-2 py-1 bg-red-400 hover:bg-red-500 rounded-md text-white">Eliminar</button>
                 </div>
             </div>
         `;
@@ -407,10 +435,8 @@ if (window.location.pathname.includes("index.html")) {
   filterLabelDate.addEventListener("change", filterOperations);
   filterLabelOrder.addEventListener("change", filterOperations);
 
-  /* on init */
-  renderOperations();
-  updateBalance();
-}
+  
+
 
 /* categories */
 const categoriesForm = document.getElementById("categories-form");
@@ -425,9 +451,7 @@ const editCategoryForm = document.getElementById("edit-category-form");
 const cancelEditBtn = document.getElementById("cancel-edit-button");
 let categoryIndex;
 
-if (window.location.pathname.includes("categories.html")) {
-  /* on init */
-  renderCategories();
+ 
 
   /* add */
   categoriesForm.addEventListener("submit", (e) => {
@@ -451,8 +475,8 @@ if (window.location.pathname.includes("categories.html")) {
                 <p>${category}</p>
             </div>
             <div>
-            <button data-index="${index}" class="editBtn mx-2 px-3 py-1 bg-blue-200 rounded-md">Editar</button>
-            <button data-index="${index}" class="deleteBtn mx-2 px-3 py-1 bg-red-400 rounded-md">Eliminar</button>
+            <button data-index="${index}" class="editBtn mx-2 px-3 py-1 bg-blue-400 hover:bg-blue-500 rounded-md text-white">Editar</button>
+            <button data-index="${index}" class="deleteBtn mx-2 px-3 py-1 bg-red-400 hover:bg-red-500 rounded-md text-white">Eliminar</button>
             </div>
         `;
 
@@ -517,12 +541,25 @@ if (window.location.pathname.includes("categories.html")) {
   cancelEditBtn.addEventListener("click", () => {
     toggleCategoriesList();
   });
-}
 
 /* burger menu */
 const buttonMenu = document.getElementById("buttonMenu");
 const headerNav = document.getElementById("headerNav");
+const burgerMenuIcon = document.getElementById("iconMenu")
 
 buttonMenu.addEventListener("click", () => {
   headerNav.classList.toggle("hidden");
+  
+  if (headerNav.classList.contains("hidden")) {
+    burgerMenuIcon.classList.remove("fa-xmark");
+    burgerMenuIcon.classList.add("fa-bars");
+  } else {
+    burgerMenuIcon.classList.remove("fa-bars");
+    burgerMenuIcon.classList.add("fa-xmark");
+  }
 });
+
+ /* on init */
+ renderCategories();
+ renderOperations();
+ updateBalance();
